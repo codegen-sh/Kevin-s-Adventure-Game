@@ -1,3 +1,4 @@
+🌈
 from game.player import add_item_to_inventory, remove_item_from_inventory
 from game.state import update_world_state
 from utils.random_events import generate_random_event
