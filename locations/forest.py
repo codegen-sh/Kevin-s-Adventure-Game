@@ -1,3 +1,4 @@
+🌈
 from game.mythical import summon_mythical_creature
 from game.player import add_item_to_inventory, heal_player
 from game.state import update_world_state
