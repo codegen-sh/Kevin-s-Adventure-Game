@@ -1,3 +1,4 @@
+from locations.beach import visit_beach
 from locations.cave import explore_cave
 from locations.forest import enter_forest
 from locations.mountain import climb_mountain
@@ -10,7 +11,7 @@ def initialize_world():
         "locations": {
             "Village": {
                 "description": "A small, peaceful village with thatched-roof houses and friendly inhabitants.",
-                "connections": ["Forest", "Mountain"],
+                "connections": ["Forest", "Mountain", "Beach"],
                 "items": ["map", "bread"]
             },
             "Forest": {
@@ -27,6 +28,11 @@ def initialize_world():
                 "description": "A tall, snow-capped mountain with treacherous paths and breathtaking views.",
                 "connections": ["Village"],
                 "items": ["rope", "pickaxe"]
+            },
+            "Beach": {
+                "description": "A beautiful sandy beach with crystal clear waters and swaying palm trees.",
+                "connections": ["Village"],
+                "items": ["shell", "coconut"]
             }
         }
     }
@@ -58,6 +64,8 @@ def interact_with_location(world, player):
         visit_village(world, player)
     elif current_location == "Mountain":
         climb_mountain(world, player)
+    elif current_location == "Beach":
+        visit_beach(world, player)
     else:
         print("There's nothing special to interact with here.")
 
