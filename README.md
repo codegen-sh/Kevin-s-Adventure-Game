@@ -20,3 +20,6 @@ This is a test repo for a text-based adventure game.
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
 
+## Last Updated
+March 28, 2025
+
