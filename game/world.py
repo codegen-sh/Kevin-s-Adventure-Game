@@ -1,4 +1,3 @@
-from locations.cave import explore_cave
 from locations.forest import enter_forest
 from locations.mountain import climb_mountain
 from locations.village import visit_village
@@ -53,7 +52,7 @@ def interact_with_location(world, player):
     if current_location == "Forest":
         enter_forest(world, player)
     elif current_location == "Cave":
-        explore_cave(world, player)
+        print("You explore the dark cave cautiously.")
     elif current_location == "Village":
         visit_village(world, player)
     elif current_location == "Mountain":
