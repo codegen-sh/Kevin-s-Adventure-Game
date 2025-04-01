@@ -11,7 +11,7 @@ def generate_random_event(events):
     return random.choices([event[0] for event in events], weights=[event[1] for event in events])[0]
 
 def handle_random_encounter(player, world):
-    """Handle a random encounter event. Handled alongside functions like find_treasure(), weather_event(), trap_event(), and special_discovery()"""
+    """Handle a random encounter event."""
     encounters = [
         "friendly_traveler",
         "merchant",
@@ -125,4 +125,3 @@ def apply_random_event(player, world):
         trap_event(player)
     elif event == "special_discovery":
         special_discovery(player, world)
-
