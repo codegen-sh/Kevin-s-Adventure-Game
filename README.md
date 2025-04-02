@@ -3,6 +3,10 @@
 
 This is a test repo for a text-based adventure game.
 
+## System Information
+- Last Updated: April 2, 2025
+- OS: Debian GNU/Linux 12 (bookworm), Kernel 4.4.0
+
 ## Installation
 
 1. Clone the repository:
@@ -19,4 +23,3 @@ This is a test repo for a text-based adventure game.
 
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
-
