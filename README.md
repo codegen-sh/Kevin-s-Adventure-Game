@@ -3,6 +3,10 @@
 
 This is a test repo for a text-based adventure game.
 
+## Last Updated
+- Date: April 7, 2025
+- Operating System: Linux/macOS/Windows
+
 ## Installation
 
 1. Clone the repository:
@@ -19,4 +23,3 @@ This is a test repo for a text-based adventure game.
 
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
-
