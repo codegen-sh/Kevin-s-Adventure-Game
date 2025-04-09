@@ -64,6 +64,7 @@ The game world consists of several interconnected locations:
 
 - `main.py`: Main game loop and initialization
 - `game/`: Core game mechanics and objects
+  - `actions.py`: Core game action handling
   - `player.py`: Player character management
   - `world.py`: World structure and location management
   - `items.py`: Item definitions and interactions
@@ -71,7 +72,7 @@ The game world consists of several interconnected locations:
   - `mythical.py`: Mythical creatures and events
   - `state.py`: Game state management
 - `locations/`: Location-specific interactions
-  - `village.py`, `forest.py`, `cave.py`, `mountain.py`
+  - `village.py`, `forest.py`, `mountain.py`
 - `utils/`: Utility functions
   - `text_formatting.py`: Text display utilities
   - `save_load.py`: Game saving/loading functionality
