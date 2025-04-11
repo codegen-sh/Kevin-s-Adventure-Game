@@ -1,4 +1,4 @@
-🌈🌈
+🌈🌈 ☁️
 # Kevin's Adventure Game
 
 This is a test repo for a text-based adventure game.
@@ -19,4 +19,3 @@ This is a test repo for a text-based adventure game.
 
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
-
