@@ -20,3 +20,24 @@ This is a test repo for a text-based adventure game.
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
 
+## WTF Is My IP
+
+Output of running wtfismyip:
+
+```
+4.246.220.170
+```
+
+Additional information:
+```json
+{
+    "YourFuckingIPAddress": "4.246.220.170",
+    "YourFuckingLocation": "Washington, VA, United States",
+    "YourFuckingHostname": "4.246.220.170",
+    "YourFuckingISP": "Microsoft Corporation",
+    "YourFuckingTorExit": false,
+    "YourFuckingCity": "Washington",
+    "YourFuckingCountry": "United States",
+    "YourFuckingCountryCode": "US"
+}
+```
