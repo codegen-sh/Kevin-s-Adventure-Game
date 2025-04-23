@@ -3,7 +3,7 @@
 
 This is a test repo for a text-based adventure game.
 
-Last updated: April 22, 2025
+Last updated: April 23, 2025
 OS: Linux modal 4.4.0 x86_64 GNU/Linux
 
 ## Installation
