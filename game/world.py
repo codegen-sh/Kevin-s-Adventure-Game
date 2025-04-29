@@ -28,7 +28,9 @@ def initialize_world():
                 "connections": ["Village"],
                 "items": ["rope", "pickaxe"]
             }
-        }
+        },
+        "weather": "sunny",
+        "special_locations": []
     }
 
 def get_current_location(world):

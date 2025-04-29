@@ -1,14 +1,18 @@
 import random
 
 from game.player import add_item_to_inventory, damage_player, heal_player
-
-# from game.world import update_world_state
+from game.state import update_world_state
 from utils.text_formatting import print_event
 
 
 def generate_random_event(events):
     """Generate a random event based on probabilities."""
     return random.choices([event[0] for event in events], weights=[event[1] for event in events])[0]
+
+def trigger_random_event(player, world):
+    """Trigger a random event with a certain probability."""
+    if random.random() < 0.3:  # 30% chance of a random event
+        apply_random_event(player, world)
 
 def handle_random_encounter(player, world):
     """Handle a random encounter event. Handled alongside functions like find_treasure(), weather_event(), trap_event(), and special_discovery()"""
@@ -71,7 +75,7 @@ def weather_event(world):
     weathers = ["sunny", "rainy", "windy", "foggy", "stormy"]
     new_weather = random.choice(weathers)
     print_event(f"The weather changes to {new_weather}.")
-    # update_world_state(world, f"weather_{new_weather}")
+    update_world_state(world, f"weather_{new_weather}")
     # TODO: Implement weather system
     # change_weather(world, new_weather)
 
@@ -95,7 +99,7 @@ def special_discovery(player, world):
     print_event(f"You've discovered a {discovery.replace('_', ' ')}!")
 
     if discovery == "hidden_cave":
-        # update_world_state(world, "add_hidden_cave")
+        update_world_state(world, "add_hidden_cave")
         print("You mark the location of the hidden cave on your map.")
     elif discovery == "ancient_ruins":
         add_item_to_inventory(player, "ancient_artifact")
@@ -125,4 +129,3 @@ def apply_random_event(player, world):
         trap_event(player)
     elif event == "special_discovery":
         special_discovery(player, world)
-
