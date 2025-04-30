@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin's Adventure Game</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding-top: 20px;
+        }
+        .hero {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 60px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .game-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .location-card {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .location-card:hover {
+            transform: translateY(-5px);
+        }
+        .location-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .command-table {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a0fcb 0%, #1565fc 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero text-center">
+            <h1 class="display-4">🎮 Kevin's Adventure Game</h1>
+            <p class="lead">Explore a magical world of mystery and adventure</p>
+            <a href="https://github.com/codegen-sh/Kevin-s-Adventure-Game" class="btn btn-light btn-lg mt-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                View on GitHub
+            </a>
+            <a href="#download" class="btn btn-outline-light btn-lg mt-3 ms-2">Download Game</a>
+        </div>
+
+        <div class="game-section">
+            <h2 class="text-center mb-4">About the Game</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Kevin's Adventure Game is an immersive text-based adventure where you navigate through various locations including forests, caves, villages, and mountains. As you explore this magical realm, you'll:</p>
+                    <ul>
+                        <li>Collect and use items to solve puzzles</li>
+                        <li>Interact with characters and environments</li>
+                        <li>Experience random events and weather changes</li>
+                        <li>Manage your health and inventory</li>
+                        <li>Uncover the secrets of the world</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Game Trailer" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-section" id="download">
+            <h2 class="text-center mb-4">How to Play</h2>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">1. Install</h3>
+                            <p class="card-text">Clone the repository and navigate to the game directory</p>
+                            <code>git clone https://github.com/codegen-sh/Kevin-s-Adventure-Game.git</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">2. Run</h3>
+                            <p class="card-text">Start the game using Python</p>
+                            <code>python main.py</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">3. Play</h3>
+                            <p class="card-text">Follow the prompts and enter commands to play</p>
+                            <code>Type 'help' for commands</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="https://github.com/codegen-sh/Kevin-s-Adventure-Game/archive/refs/heads/main.zip" class="btn btn-primary btn-lg">Download Game</a>
+            </div>
+        </div>
+
+        <div class="game-section">
+            <h2 class="text-center mb-4">Game World</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card location-card">
+                        <img src="https://source.unsplash.com/random/300x200/?village" class="card-img-top" alt="Village">
+                        <div class="card-body">
+                            <h5 class="card-title">Village</h5>
+                            <p class="card-text">A peaceful starting point with friendly inhabitants</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card location-card">
+                        <img src="https://source.unsplash.com/random/300x200/?forest" class="card-img-top" alt="Forest">
+                        <div class="card-body">
+                            <h5 class="card-title">Forest</h5>
+                            <p class="card-text">A mysterious woodland filled with resources and dangers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card location-card">
+                        <img src="https://source.unsplash.com/random/300x200/?cave" class="card-img-top" alt="Cave">
+                        <div class="card-body">
+                            <h5 class="card-title">Cave</h5>
+                            <p class="card-text">A dark underground area with valuable treasures</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card location-card">
+                        <img src="https://source.unsplash.com/random/300x200/?mountain" class="card-img-top" alt="Mountain">
+                        <div class="card-body">
+                            <h5 class="card-title">Mountain</h5>
+                            <p class="card-text">A challenging terrain with unique rewards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-section">
+            <h2 class="text-center mb-4">Game Commands</h2>
+            <table class="table command-table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>move [location]</code></td>
+                        <td>Travel to a connected location</td>
+                    </tr>
+                    <tr>
+                        <td><code>look</code></td>
+                        <td>Examine your surroundings</td>
+                    </tr>
+                    <tr>
+                        <td><code>inventory</code></td>
+                        <td>Check what items you're carrying</td>
+                    </tr>
+                    <tr>
+                        <td><code>pickup [item]</code></td>
+                        <td>Add an item to your inventory</td>
+                    </tr>
+                    <tr>
+                        <td><code>drop [item]</code></td>
+                        <td>Remove an item from your inventory</td>
+                    </tr>
+                    <tr>
+                        <td><code>use [item]</code></td>
+                        <td>Use an item in your inventory</td>
+                    </tr>
+                    <tr>
+                        <td><code>examine [item]</code></td>
+                        <td>Get a description of an item</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code></td>
+                        <td>Check your health and gold</td>
+                    </tr>
+                    <tr>
+                        <td><code>interact</code></td>
+                        <td>Interact with your current location</td>
+                    </tr>
+                    <tr>
+                        <td><code>help</code></td>
+                        <td>Show the help message</td>
+                    </tr>
+                    <tr>
+                        <td><code>quit</code></td>
+                        <td>Save and exit the game</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <div class="container">
+            <p>Created by Kevin | Last updated: April 30, 2025</p>
+            <p>OS: Linux modal 4.4.0 x86_64 GNU/Linux</p>
+            <p>
+                <a href="https://github.com/codegen-sh/Kevin-s-Adventure-Game" class="text-white me-3">GitHub</a>
+                <a href="README.md" class="text-white">Documentation</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
