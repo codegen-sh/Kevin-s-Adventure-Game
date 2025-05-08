@@ -17,6 +17,7 @@ Kevin's Adventure Game is an interactive text-based adventure where players navi
 - **Mythical Creatures**: Encounter and interact with various mythical beings
 - **Save/Load System**: Save your progress and continue your adventure later
 - **Random Events**: Experience unexpected events that make each playthrough unique
+- **Text-Based Interface**: Simple and intuitive text commands
 
 ## Installation
 
