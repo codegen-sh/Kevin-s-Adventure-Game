@@ -1,58 +1,125 @@
+"""
+Module for managing weather effects in the game.
+"""
 import random
+
+from game.player import damage_player, heal_player
+from game.state import get_world_state, update_world_state
+from utils.text_formatting import print_event
+
+
+def initialize_weather(world):
+    """
+    Initialize the weather system in the world.
+    
+    Args:
+        world (dict): The world state dictionary
+    """
+    weather_types = ["clear", "cloudy", "rainy", "foggy", "stormy", "windy"]
+    initial_weather = random.choice(weather_types)
+    update_world_state(world, f"weather_{initial_weather}")
+    print_event(f"The weather is {initial_weather}.")
 
 
 def get_current_weather(world):
-    if "weather" not in world:
-        world["weather"] = "clear"
-    return world["weather"]
+    """
+    Get the current weather in the world.
+    
+    Args:
+        world (dict): The world state dictionary
+    
+    Returns:
+        str: The current weather condition
+    """
+    return get_world_state(world, "weather") or "clear"
 
-def change_weather(world):
-    weather_conditions = ["clear", "cloudy", "rainy", "stormy", "foggy", "windy"]
-    new_weather = random.choice(weather_conditions)
-    world["weather"] = new_weather
+
+def change_weather(world, new_weather=None):
+    """
+    Change the weather in the world.
+    
+    Args:
+        world (dict): The world state dictionary
+        new_weather (str, optional): The new weather to set. If None, a random weather is chosen.
+    
+    Returns:
+        str: The new weather condition
+    """
+    weather_types = ["clear", "cloudy", "rainy", "foggy", "stormy", "windy"]
+    
+    if new_weather is None:
+        current_weather = get_current_weather(world)
+        # Exclude the current weather to ensure a change
+        possible_weathers = [w for w in weather_types if w != current_weather]
+        new_weather = random.choice(possible_weathers)
+    
+    update_world_state(world, f"weather_{new_weather}")
+    print_event(f"The weather changes to {new_weather}.")
     return new_weather
 
-def apply_weather_effects(player, world):
+
+def apply_weather_effects(world, player):
+    """
+    Apply effects of the current weather to the player.
+    
+    Args:
+        world (dict): The world state dictionary
+        player (dict): The player's state
+    """
     current_weather = get_current_weather(world)
+    current_location = player["location"]
+    
+    # Different weather effects based on location and weather type
+    if current_location in ["Forest", "Mountain", "Village"]:
+        # These locations are affected by weather
+        if current_weather == "rainy":
+            print("The rain makes the ground slippery.")
+            if random.random() < 0.2:  # 20% chance
+                print("You slip and fall, taking minor damage.")
+                damage_player(player, 5)
+        
+        elif current_weather == "stormy":
+            print("The storm is fierce, with lightning and strong winds.")
+            if random.random() < 0.3:  # 30% chance
+                print("Lightning strikes nearby, startling you!")
+                damage_player(player, 10)
+        
+        elif current_weather == "foggy":
+            print("The thick fog makes it difficult to see far ahead.")
+            # No direct damage, but could affect other game mechanics
+        
+        elif current_weather == "clear":
+            print("The clear weather lifts your spirits.")
+            if random.random() < 0.2:  # 20% chance
+                print("The pleasant weather makes you feel better.")
+                heal_player(player, 5)
+    
+    elif current_location == "Cave":
+        # Cave is mostly sheltered from weather
+        if current_weather in ["rainy", "stormy"]:
+            print("You can hear the sound of rain and thunder outside, but you're safe in the cave.")
+        else:
+            print("The weather outside doesn't affect you much in the cave.")
 
-    if current_weather == "rainy":
-        print("The rain is making the ground slippery. Be careful!")
-        player["agility"] = max(1, player.get("agility", 10) - 2)
-    elif current_weather == "stormy":
-        print("The storm is making it hard to see and move around.")
-        player["agility"] = max(1, player.get("agility", 10) - 3)
-        player["perception"] = max(1, player.get("perception", 10) - 3)
-    elif current_weather == "foggy":
-        print("The fog is reducing visibility significantly.")
-        player["perception"] = max(1, player.get("perception", 10) - 4)
-    elif current_weather == "windy":
-        print("The strong wind is making it difficult to move quickly.")
-        player["agility"] = max(1, player.get("agility", 10) - 1)
-    else:
-        print("The weather is clear and doesn't affect your abilities.")
 
-def describe_weather(world):
-    current_weather = get_current_weather(world)
-
+def get_weather_description(weather):
+    """
+    Get a detailed description of a weather condition.
+    
+    Args:
+        weather (str): The weather condition
+    
+    Returns:
+        str: A detailed description of the weather
+    """
     descriptions = {
-        "clear": "The sky is clear and the sun is shining brightly.",
-        "cloudy": "Gray clouds cover the sky, blocking out the sun.",
-        "rainy": "A steady rain is falling, creating puddles on the ground.",
-        "stormy": "Dark clouds loom overhead as thunder rumbles in the distance.",
-        "foggy": "A thick fog has settled in, limiting visibility to just a few feet.",
-        "windy": "Strong gusts of wind blow through the area, rustling leaves and branches."
+        "clear": "The sky is clear and blue, with the sun shining brightly. It's a perfect day for exploration.",
+        "cloudy": "Gray clouds cover the sky, blocking the sun and casting a dull light over the land.",
+        "rainy": "Rain falls steadily from dark clouds, creating puddles and making the ground muddy and slippery.",
+        "foggy": "A thick fog has settled, limiting visibility and giving the surroundings a mysterious atmosphere.",
+        "stormy": "Dark storm clouds fill the sky, with lightning flashing and thunder rumbling. The wind howls fiercely.",
+        "windy": "Strong winds blow through the area, bending trees and carrying leaves and debris through the air."
     }
+    
+    return descriptions.get(weather, f"The weather is {weather}.")
 
-    return descriptions.get(current_weather, "The weather is unremarkable.")
-
-def weather_forecast(world):
-    """Use describe_weather() to get the current weather, then randomly choose a future weather condition."""
-    current_weather = get_current_weather(world)
-    future_weather = random.choice(["improve", "worsen", "stay the same"])
-
-    if future_weather == "improve":
-        return f"The current {current_weather} conditions are expected to improve soon."
-    elif future_weather == "worsen":
-        return f"The {current_weather} weather might get worse in the coming hours."
-    else:
-        return f"The {current_weather} weather is likely to persist for a while."
