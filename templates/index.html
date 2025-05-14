@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin's Adventure Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Kevin's Adventure Game</h1>
+        </header>
+        
+        <div class="game-content">
+            <div class="game-panel left-panel">
+                <div class="player-info">
+                    <h2>Player Status</h2>
+                    <div id="player-status">
+                        <p><strong>Name:</strong> <span id="player-name">Kevin</span></p>
+                        <p><strong>Health:</strong> <span id="player-health">100</span></p>
+                        <p><strong>Gold:</strong> <span id="player-gold">100</span></p>
+                    </div>
+                </div>
+                
+                <div class="inventory">
+                    <h2>Inventory</h2>
+                    <ul id="inventory-list">
+                        <!-- Inventory items will be added here dynamically -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="game-panel main-panel">
+                <div class="location-info">
+                    <h2>Location: <span id="current-location">Village</span></h2>
+                    <p id="location-description">A small, peaceful village with thatched-roof houses and friendly inhabitants.</p>
+                </div>
+                
+                <div class="game-output">
+                    <div id="game-text">
+                        <!-- Game text will be displayed here -->
+                    </div>
+                </div>
+                
+                <div class="game-input">
+                    <input type="text" id="command-input" placeholder="Enter your command...">
+                    <button id="submit-command"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="game-panel right-panel">
+                <div class="available-locations">
+                    <h2>Available Locations</h2>
+                    <ul id="location-list">
+                        <!-- Available locations will be added here dynamically -->
+                    </ul>
+                </div>
+                
+                <div class="common-commands">
+                    <h2>Common Commands</h2>
+                    <div class="command-buttons">
+                        <button class="command-btn" data-command="look">Look</button>
+                        <button class="command-btn" data-command="inventory">Inventory</button>
+                        <button class="command-btn" data-command="status">Status</button>
+                        <button class="command-btn" data-command="help">Help</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="start-game-modal" class="modal">
+            <div class="modal-content">
+                <h2>Welcome to Kevin's Adventure Game!</h2>
+                <p>Enter your character's name to begin your adventure:</p>
+                <input type="text" id="player-name-input" placeholder="Kevin" value="Kevin">
+                <button id="start-game-btn">Start Adventure</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Kevin's Adventure Game</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
+
