@@ -1,2 +1,24 @@
-__pycache__
-saves
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Save files
+saves/
+
+# Virtual environment
+venv/
+env/
+.env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
