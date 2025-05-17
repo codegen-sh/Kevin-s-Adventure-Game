@@ -1,4 +1,4 @@
-🌈🎮
+🌈🎮🌈
 # Kevin's Adventure Game
 
 A text-based adventure game where you navigate through different locations, interact with items, and experience random events in a fantasy world.
