@@ -3,5 +3,5 @@
 # See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # Default owners for everything in the repo
-* @codegen-sh/codegen-team
+* @codegen-sh/testing-team
 
