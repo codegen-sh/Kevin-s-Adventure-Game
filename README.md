@@ -62,9 +62,9 @@ The game automatically saves your progress when you quit. You can load a previou
 ## Development
 
 The game is structured into several modules:
-- `game/`: Core game mechanics and objects
-- `locations/`: Different areas in the game world
-- `utils/`: Helper functions for game functionality
+- `game/`: Core game mechanics and objects (player, items, world, weather, mythical creatures)
+- `locations/`: Different areas in the game world (village, forest, mountain)
+- `utils/`: Helper functions for game functionality (text formatting, save/load, random events)
 
 ## Contributing
 
