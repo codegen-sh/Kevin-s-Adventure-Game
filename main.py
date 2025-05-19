@@ -3,6 +3,7 @@ from game.player import create_player, get_player_status
 from game.world import get_current_location, initialize_world
 from utils.save_load import list_save_files, load_game, save_game
 from utils.text_formatting import print_help, print_welcome_message
+from utils.report import generate_and_save_report
 
 
 def main():
@@ -43,6 +44,8 @@ def main():
             break
         elif action == "help":
             print_help()
+        elif action == "report":
+            generate_and_save_report(player, world)
         else:
             perform_action(player, world, action)
 
