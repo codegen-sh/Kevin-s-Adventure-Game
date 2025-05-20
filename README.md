@@ -10,7 +10,7 @@ OS: Linux modal 4.4.0 x86_64 GNU/Linux
 
 1. Clone the repository:
    ```
-   git clone https://github.com/kevin-s-github/kevins-adventure-game.git
+   git clone https://github.com/codegen-sh/Kevin-s-Adventure-Game.git
    ```
 
 2. Run the game:
