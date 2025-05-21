@@ -7,6 +7,7 @@ from game.player import (
     move_player,
     remove_item_from_inventory,
 )
+from game.state import update_world_state, set_world_state
 from game.world import change_location, get_all_locations, get_available_locations
 from utils.random_events import generate_random_event
 
@@ -136,7 +137,7 @@ def use_item(player, item, world):
         print("You swing the sword, practicing your combat moves.")
         if world["current_location"] == "Forest":
             print("Your sword slices through some thick vines, revealing a hidden path!")
-            # update_world_state(world, "reveal_hidden_path")
+            update_world_state(world, "reveal_hidden_path")
         return True
     elif item == "gold_coin":
         print("You flip the gold coin. It catches the light, shimmering brilliantly.")
@@ -155,7 +156,7 @@ def use_item(player, item, world):
         if world["current_location"] == "Mountain":
             print("The necklace begins to glow, revealing hidden runes on nearby rocks!")
             print("You discover a secret path leading to a hidden cave.")
-            # update_world_state(world, "reveal_hidden_cave")
+            update_world_state(world, "reveal_hidden_cave")
         else:
             print("The necklace sparkles beautifully, but nothing else happens.")
         return True
@@ -164,7 +165,7 @@ def use_item(player, item, world):
         if generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "wisdom":
             print("Suddenly, knowledge of the ancient world floods your mind!")
             print("You gain insight into the history of this land.")
-            # update_player_knowledge(player, "ancient_history")
+            set_world_state(world, "player_knowledge", "ancient_history")
         elif generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "curse":
             print("A dark energy emanates from the artifact, making you feel weak.")
             damage_player(player, 10)

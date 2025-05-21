@@ -14,9 +14,9 @@ def visit_village(world, player):
         print("3. Visit the inn")
         print("4. Check for quests")
         print("5. Leave the village")
-        # print("6. Check on the village dragon")
+        print("6. Check on the village dragon")
 
-        choice = input("Enter your choice (1-5): ")
+        choice = input("Enter your choice (1-6): ")
 
         if choice == "1":
             visit_shop(world, player)
@@ -29,8 +29,8 @@ def visit_village(world, player):
         elif choice == "5":
             print("You decide to leave the village.")
             break
-        # elif choice == "6":
-        #     summon_mythical_creature(world, player, "dragon")
+        elif choice == "6":
+            summon_mythical_creature(world, player, "dragon")
         else:
             print("Invalid choice. Please try again.")
 

@@ -44,8 +44,8 @@ def explore_forest(world, player):
         print("The peaceful interaction leaves you feeling refreshed.")
     elif event == "discover_clearing":
         print("You discover a beautiful clearing with a small pond.")
-        # summon_mythical_creature(world, player, "unicorn")
-        # update_world_state(world, "add_clearing")
+        summon_mythical_creature(world, player, "unicorn")
+        update_world_state(world, "add_clearing")
     else:
         print("Your exploration yields nothing of note this time.")
 
@@ -56,12 +56,11 @@ def climb_tree(world, player):
 def listen_to_forest(world, player):
     print("You stop and listen carefully to the sounds of the forest.")
     print("You hear a faint sound of rushing water in the distance. There might be a river nearby.")
-    # TODO: Implement this
-    # if generate_random_event(events = [("discover_river", 20), (None, 80)]) == "discover_river":
-    #     print("You've discovered a river!")
-    #     update_world_state(world, "add_river")
-    # else:
-    #     print("You don't find anything of note this time.")
+    if generate_random_event(events = [("discover_river", 20), (None, 80)]) == "discover_river":
+        print("You've discovered a river!")
+        update_world_state(world, "add_river")
+    else:
+        print("You don't find anything of note this time.")
 
 def forage_for_food(world, player):
     print("You search the forest floor for edible plants and mushrooms.")
