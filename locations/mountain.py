@@ -47,10 +47,10 @@ def check_weather(world, player):
 
     if event == "clear_skies":
         print("The skies are clear, offering a breathtaking view of the surrounding lands.")
-        # update_world_state(world, "improve_visibility")
+        update_world_state(world, "improve_visibility")
     elif event == "incoming_storm":
         print("You notice dark clouds gathering. A storm might be approaching.")
-        # update_world_state(world, "approaching_storm")
+        update_world_state(world, "approaching_storm")
     else:
         print("The weather seems stable for now.")
 
@@ -80,10 +80,10 @@ def reach_peak(world, player):
         add_item_to_inventory(player, "hermit's_blessing")
         print("The hermit thanks you and gives you their blessing, which fills you with energy.")
         heal_player(player, 100)
-        # summon_mythical_creature(world, player, "phoenix")
+        summon_mythical_creature(world, player, "phoenix")
 
     print("The view from the top is spectacular. You can see the entire game world spread out before you.")
-    # update_world_state(world, "reveal_map")
+    update_world_state(world, "reveal_map")
 
 def explore_mountain_cave(world, player):
     print("You discover a small cave entrance on the mountainside.")

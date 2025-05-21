@@ -1,8 +1,7 @@
 import random
 
 from game.player import add_item_to_inventory, damage_player, heal_player
-
-# from game.world import update_world_state
+from game.state import update_world_state
 from utils.text_formatting import print_event
 
 
@@ -71,7 +70,7 @@ def weather_event(world):
     weathers = ["sunny", "rainy", "windy", "foggy", "stormy"]
     new_weather = random.choice(weathers)
     print_event(f"The weather changes to {new_weather}.")
-    # update_world_state(world, f"weather_{new_weather}")
+    update_world_state(world, f"weather_{new_weather}")
     # TODO: Implement weather system
     # change_weather(world, new_weather)
 
@@ -95,7 +94,7 @@ def special_discovery(player, world):
     print_event(f"You've discovered a {discovery.replace('_', ' ')}!")
 
     if discovery == "hidden_cave":
-        # update_world_state(world, "add_hidden_cave")
+        update_world_state(world, "add_hidden_cave")
         print("You mark the location of the hidden cave on your map.")
     elif discovery == "ancient_ruins":
         add_item_to_inventory(player, "ancient_artifact")
@@ -125,4 +124,3 @@ def apply_random_event(player, world):
         trap_event(player)
     elif event == "special_discovery":
         special_discovery(player, world)
-
