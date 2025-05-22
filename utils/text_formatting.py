@@ -8,7 +8,7 @@ def wrap_text(text, width=80):
 def print_welcome_message():
     """Print a formatted welcome message for the game."""
     welcome_text = """
-Welcome to Kevin's Adventure Game!
+🌈 Welcome to Kevin's Adventure Game! 🌈
 
 Explore a world of mystery and danger as you navigate through
 forests, caves, villages, and mountains. Collect items, interact
