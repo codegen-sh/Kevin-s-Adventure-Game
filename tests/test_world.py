@@ -1,7 +1,6 @@
 """
 Tests for the world module.
 """
-import pytest
 
 from kevin_adventure_game.game.world import (
     change_location,
@@ -46,7 +45,7 @@ def test_get_available_locations():
         "current_location": "Village",
         "locations": {
             "Village": {"connections": ["Forest", "Mountain"]},
-        }
+        },
     }
     assert get_available_locations(world) == ["Forest", "Mountain"]
 
@@ -59,13 +58,13 @@ def test_change_location():
             "Village": {"connections": ["Forest", "Mountain"]},
             "Forest": {"connections": ["Village"]},
             "Mountain": {"connections": ["Village"]},
-        }
+        },
     }
-    
+
     # Test valid location change
     assert change_location(world, "Forest") is True
     assert world["current_location"] == "Forest"
-    
+
     # Test invalid location change
     assert change_location(world, "Cave") is False
     assert world["current_location"] == "Forest"
@@ -77,7 +76,7 @@ def test_is_location_accessible():
         "current_location": "Village",
         "locations": {
             "Village": {"connections": ["Forest", "Mountain"]},
-        }
+        },
     }
     assert is_location_accessible(world, "Forest") is True
     assert is_location_accessible(world, "Cave") is False
@@ -93,5 +92,9 @@ def test_get_all_locations():
             "Mountain": {},
         }
     }
-    assert set(get_all_locations(world)) == {"Village", "Forest", "Cave", "Mountain"}
-
+    assert set(get_all_locations(world)) == {
+        "Village",
+        "Forest",
+        "Cave",
+        "Mountain",
+    }

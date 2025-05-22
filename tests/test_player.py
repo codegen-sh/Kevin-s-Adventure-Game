@@ -1,7 +1,6 @@
 """
 Tests for the player module.
 """
-import pytest
 
 from kevin_adventure_game.game.player import (
     add_item_to_inventory,
@@ -52,14 +51,14 @@ def test_remove_item_from_inventory(capsys):
     """Test removing an item from inventory."""
     player = create_player("TestPlayer")
     player["inventory"] = ["sword", "potion"]
-    
+
     # Test removing an item that exists
     result = remove_item_from_inventory(player, "sword")
     assert result is True
     assert "sword" not in player["inventory"]
     captured = capsys.readouterr()
     assert "You dropped: sword" in captured.out
-    
+
     # Test removing an item that doesn't exist
     result = remove_item_from_inventory(player, "axe")
     assert result is False
@@ -80,13 +79,13 @@ def test_heal_player(capsys):
     """Test healing the player."""
     player = create_player("TestPlayer")
     player["health"] = 50
-    
+
     # Test normal healing
     heal_player(player, 20)
     assert player["health"] == 70
     captured = capsys.readouterr()
     assert "You healed for 20 health" in captured.out
-    
+
     # Test healing beyond max health
     heal_player(player, 40)
     assert player["health"] == 100  # Should cap at 100
@@ -97,17 +96,16 @@ def test_heal_player(capsys):
 def test_damage_player(capsys):
     """Test damaging the player."""
     player = create_player("TestPlayer")
-    
+
     # Test normal damage
     damage_player(player, 30)
     assert player["health"] == 70
     captured = capsys.readouterr()
     assert "You took 30 damage" in captured.out
-    
+
     # Test fatal damage
     damage_player(player, 80)
     assert player["health"] == 0  # Should not go below 0
     captured = capsys.readouterr()
     assert "You took 80 damage" in captured.out
     assert "You have been defeated" in captured.out
-

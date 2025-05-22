@@ -2,6 +2,7 @@
 Configuration module for Kevin's Adventure Game.
 This module handles loading and accessing game configuration.
 """
+
 import json
 import logging
 import os
@@ -42,7 +43,7 @@ def get_config_dir():
         config_dir = Path(os.environ.get("APPDATA", "")) / "KevinAdventureGame"
     else:  # Unix/Linux/Mac
         config_dir = Path.home() / ".config" / "kevin_adventure_game"
-    
+
     # Create directory if it doesn't exist
     config_dir.mkdir(parents=True, exist_ok=True)
     return config_dir
@@ -56,19 +57,19 @@ def get_config_file():
 def load_config():
     """Load configuration from file or create default."""
     global _config
-    
+
     if _config is not None:
         return _config
-    
+
     config_file = get_config_file()
-    
+
     # If config file exists, load it
     if config_file.exists():
         try:
             with open(config_file, "r") as f:
                 loaded_config = json.load(f)
             logger.info(f"Loaded configuration from {config_file}")
-            
+
             # Merge with default config to ensure all keys exist
             merged_config = DEFAULT_CONFIG.copy()
             for section, values in loaded_config.items():
@@ -76,7 +77,7 @@ def load_config():
                     merged_config[section].update(values)
                 else:
                     merged_config[section] = values
-            
+
             _config = merged_config
         except Exception as e:
             logger.error(f"Error loading config: {e}")
@@ -92,7 +93,7 @@ def load_config():
         except Exception as e:
             logger.error(f"Error creating config file: {e}")
             _config = DEFAULT_CONFIG
-    
+
     return _config
 
 
@@ -100,9 +101,9 @@ def save_config(config=None):
     """Save configuration to file."""
     if config is None:
         config = _config if _config is not None else DEFAULT_CONFIG
-    
+
     config_file = get_config_file()
-    
+
     try:
         with open(config_file, "w") as f:
             json.dump(config, f, indent=4)
@@ -116,7 +117,7 @@ def save_config(config=None):
 def get_config_value(section, key, default=None):
     """Get a specific configuration value."""
     config = load_config()
-    
+
     try:
         return config[section][key]
     except KeyError:
@@ -133,14 +134,13 @@ def get_config_value(section, key, default=None):
 def set_config_value(section, key, value):
     """Set a specific configuration value."""
     config = load_config()
-    
+
     # Create section if it doesn't exist
     if section not in config:
         config[section] = {}
-    
+
     # Set value
     config[section][key] = value
-    
+
     # Save config
     return save_config(config)
-

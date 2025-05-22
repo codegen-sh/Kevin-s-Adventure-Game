@@ -18,4 +18,3 @@ python_files = "test_*.py"
 python_functions = "test_*"
 python_classes = "Test*"
 addopts = "--cov=kevin_adventure_game --cov-report=term-missing"
-

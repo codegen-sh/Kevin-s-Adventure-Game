@@ -2,15 +2,17 @@
 Actions module for Kevin's Adventure Game.
 This module handles all player actions in the game.
 """
+
 import logging
 
-from kevin_adventure_game.game.items import get_available_items, transfer_item, use_item
+from kevin_adventure_game.game.items import (
+    get_available_items,
+    transfer_item,
+    use_item,
+)
 from kevin_adventure_game.game.player import (
-    add_item_to_inventory,
-    damage_player,
     get_player_status,
     move_player,
-    remove_item_from_inventory,
 )
 from kevin_adventure_game.game.world import (
     change_location,
@@ -63,7 +65,7 @@ def perform_action(player, world, action):
         return handle_interact(player, world)
     else:
         logger.info(f"Unknown command: {command}")
-        print(f"I don't understand '{action}'. Type 'help' for a list of commands.")
+        print(f"I don't understand '{action}'. " "Type 'help' for a list of commands.")
         return False
 
 
@@ -95,7 +97,7 @@ def handle_look(player, world):
     current_location = get_current_location(world)
     print(f"You are in the {current_location}.")
     print(get_location_description(world, current_location))
-    
+
     # Show available items
     items = get_available_items(world, current_location)
     if items:
@@ -104,13 +106,13 @@ def handle_look(player, world):
             print(f"- {item}")
     else:
         print("You don't see any items here.")
-    
+
     # Show available exits
     exits = get_available_locations(world)
     print("You can go to:")
     for exit_location in exits:
         print(f"- {exit_location}")
-    
+
     return True
 
 
@@ -134,7 +136,7 @@ def handle_pickup(player, world, args):
     item = " ".join(args).lower()
     current_location = get_current_location(world)
     available_items = get_available_items(world, current_location)
-    
+
     if item in available_items:
         if transfer_item(player, world, item, from_inventory_to_world=False):
             logger.info(f"Player picked up {item} at {current_location}")
@@ -181,7 +183,7 @@ def handle_examine(player, world, args):
 
     item = " ".join(args).lower()
     from kevin_adventure_game.game.items import get_item_description
-    
+
     if item in player["inventory"]:
         print(get_item_description(item))
         return True
@@ -206,4 +208,3 @@ def handle_interact(player, world):
     """Handle the 'interact' command."""
     interact_with_location(world, player)
     return True
-
