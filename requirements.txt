@@ -1,0 +1,12 @@
+# Kevin's Adventure Game Requirements
+# This game uses only Python standard library modules
+# No external dependencies required
+
+# Python 3.6+ is recommended for best compatibility
+# The game has been tested with Python 3.6, 3.7, 3.8, 3.9, 3.10, and 3.11
+
+# Optional development dependencies for testing and linting:
+# pytest>=6.0.0
+# flake8>=3.8.0
+# black>=21.0.0
+
