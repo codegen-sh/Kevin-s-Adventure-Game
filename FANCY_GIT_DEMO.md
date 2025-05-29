@@ -3,7 +3,7 @@
 This file demonstrates advanced git techniques for testing purposes.
 
 ## Features Demonstrated:
-- [ ] Git Worktree
+- [x] Git Worktree
 - [ ] Interactive Rebase
 - [ ] Git Bisect
 - [ ] Advanced Branching
@@ -14,3 +14,6 @@ This file demonstrates advanced git techniques for testing purposes.
 ## Current Status
 Starting the fancy git demo...
 
+### Git Worktree ✅
+Created a parallel working directory at `../kevin-worktree-experiment`
+This allows working on multiple branches simultaneously!
