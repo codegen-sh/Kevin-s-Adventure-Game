@@ -21,3 +21,7 @@ Follow the prompts and make choices to guide Kevin through his adventure!
 ## Test Commit
 
 This line was added to test signed commits with Codegen Bot.
+
+## Signed Commit Testing
+
+Attempting to demonstrate signed commit functionality in the Kevin repo. GPG configuration in sandbox environments can be challenging due to entropy and TTY limitations.
