@@ -1,24 +1,27 @@
 🌈🌈
 # Kevin's Adventure Game
 
-This is a test repo for a text-based adventure game.
+Welcome to Kevin's Adventure Game! This is a text-based adventure game where you play as Kevin exploring different locations and making choices.
 
-Last updated: April 22, 2025
-OS: Linux modal 4.4.0 x86_64 GNU/Linux
+## How to Play
 
-## Installation
+Run the game with:
+```
+python main.py
+```
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/kevin-s-github/kevins-adventure-game.git
-   ```
+Follow the prompts and make choices to guide Kevin through his adventure!
 
-2. Run the game:
-   ```
-   python main.py
-   ```
+## Features
 
-## Usage
+- Multiple locations to explore
+- Interactive choices that affect the story
+- Simple text-based interface
 
-1. Follow the prompts in the game.
-2. Type 'help' at any time to see available commands.
+## Test Commit
+
+This line was added to test signed commits with Codegen Bot.
+
+## Signed Commit Testing
+
+Attempting to demonstrate signed commit functionality in the Kevin repo. GPG configuration in sandbox environments can be challenging due to entropy and TTY limitations.
