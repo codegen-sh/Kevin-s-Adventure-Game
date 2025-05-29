@@ -1,0 +1,4 @@
+export GH_TOKEN=ghs_qkOjfc1qgG3CHHkdNLHda5v281C9tN1ubdii
+export GIT_PAGER=cat
+export PREVIEW_PORT=3000
+export PASSWORD=LWROphSTFn2u
