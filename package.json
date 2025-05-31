@@ -1,0 +1,46 @@
+{
+  "name": "kevins-adventure-monorepo",
+  "version": "1.0.0",
+  "description": "Kevin's Adventure Game - Monorepo with FastAPI backend and Next.js frontend",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd packages/backend && python -m uvicorn api:app --reload --host 0.0.0.0 --port 8000",
+    "dev:frontend": "cd packages/frontend && npm run dev",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd packages/frontend && npm run build",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd packages/backend && python -m uvicorn api:app --host 0.0.0.0 --port 8000",
+    "start:frontend": "cd packages/frontend && npm run start",
+    "install:backend": "cd packages/backend && pip install -r requirements.txt",
+    "install:frontend": "cd packages/frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "test": "npm run test:frontend",
+    "test:frontend": "cd packages/frontend && npm run test",
+    "test:backend": "cd packages/backend && python -m pytest",
+    "lint": "npm run lint:frontend",
+    "lint:frontend": "cd packages/frontend && npm run lint",
+    "lint:backend": "cd packages/backend && flake8 .",
+    "format": "npm run format:frontend && npm run format:backend",
+    "format:frontend": "cd packages/frontend && npm run format",
+    "format:backend": "cd packages/backend && black . && isort ."
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "adventure-game",
+    "text-based",
+    "fastapi",
+    "nextjs",
+    "monorepo",
+    "python",
+    "typescript"
+  ],
+  "author": "Kevin's Adventure Team",
+  "license": "MIT"
+}
+
