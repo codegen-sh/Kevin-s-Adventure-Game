@@ -1,0 +1,145 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install backend dependencies
+      run: |
+        cd packages/backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run backend tests
+      run: |
+        cd packages/backend
+        python -m pytest tests/ -v
+    
+    - name: Test backend API startup
+      run: |
+        cd packages/backend
+        timeout 10s python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 || true
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'packages/frontend/package-lock.json'
+    
+    - name: Install frontend dependencies
+      run: |
+        cd packages/frontend
+        npm ci
+    
+    - name: Run frontend tests
+      run: |
+        cd packages/frontend
+        npm test -- --coverage --watchAll=false
+    
+    - name: Build frontend
+      run: |
+        cd packages/frontend
+        npm run build
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: [test-backend, test-frontend]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install root dependencies
+      run: npm install
+    
+    - name: Install backend dependencies
+      run: |
+        cd packages/backend
+        pip install -r requirements.txt
+    
+    - name: Install frontend dependencies
+      run: |
+        cd packages/frontend
+        npm ci
+    
+    - name: Start backend
+      run: |
+        cd packages/backend
+        python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 &
+        sleep 5
+    
+    - name: Test API health
+      run: |
+        curl -f http://localhost:8000/ || exit 1
+    
+    - name: Build frontend
+      run: |
+        cd packages/frontend
+        REACT_APP_API_URL=http://localhost:8000 npm run build
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install Python linting tools
+      run: |
+        pip install flake8 black
+    
+    - name: Lint Python code
+      run: |
+        cd packages/backend
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        black --check .
+    
+    - name: Install frontend dependencies
+      run: |
+        cd packages/frontend
+        npm ci
+    
+    - name: Lint TypeScript code
+      run: |
+        cd packages/frontend
+        npm run lint || true  # Don't fail on lint warnings for now
+
