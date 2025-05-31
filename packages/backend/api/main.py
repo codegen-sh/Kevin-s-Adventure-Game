@@ -81,14 +81,13 @@ async def get_game_state(session_id: str):
     world = session["world"]
     
     current_location = get_current_location(world)
-    available_locations = get_available_locations(world, current_location)
+    available_locations = get_available_locations(world)
     
     available_actions = [
         "look around",
         "check inventory",
         "check status",
-        f"go to {loc.lower()}" for loc in available_locations
-    ]
+    ] + [f"go to {loc.lower()}" for loc in available_locations]
     
     # Add location-specific items as actions
     location_items = world["locations"][current_location].get("items", [])
@@ -139,7 +138,7 @@ async def perform_action(action_request: ActionRequest):
         elif action.startswith("go to "):
             destination = action.replace("go to ", "").title()
             current_location = get_current_location(world)
-            available_locations = get_available_locations(world, current_location)
+            available_locations = get_available_locations(world)
             
             if destination in available_locations:
                 world["current_location"] = destination
@@ -208,4 +207,3 @@ async def list_saves():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

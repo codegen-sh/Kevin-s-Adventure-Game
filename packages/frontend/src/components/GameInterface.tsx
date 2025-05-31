@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { GameSession, GameState } from '../types/game';
 import { gameApi } from '../services/gameApi';
@@ -90,32 +90,32 @@ const GameInterface: React.FC<GameInterfaceProps> = ({ gameSession, onEndGame })
   const logRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    loadGameState();
-  }, [gameSession.sessionId]);
-
-  useEffect(() => {
     // Scroll to bottom of log when new messages are added
     if (logRef.current) {
       logRef.current.scrollTop = logRef.current.scrollHeight;
     }
   }, [gameLog]);
 
-  const loadGameState = async () => {
+  const addToLog = useCallback((message: string) => {
+    setGameLog(prev => [...prev, message]);
+  }, []);
+
+  const loadGameState = useCallback(async () => {
     try {
       const state = await gameApi.getGameState(gameSession.sessionId);
       setGameState(state);
-      addToLog(`Welcome to ${state.current_location}! ${state.message}`);
+      addToLog(`Welcome to ${state.current_location}!`);
     } catch (error) {
       console.error('Error loading game state:', error);
       addToLog('Error loading game state. Please try again.');
     }
-  };
+  }, [gameSession.sessionId, addToLog]);
 
-  const addToLog = (message: string) => {
-    setGameLog(prev => [...prev, message]);
-  };
+  useEffect(() => {
+    loadGameState();
+  }, [loadGameState]);
 
-  const performAction = async (action: string) => {
+  const performAction = useCallback(async (action: string) => {
     if (!gameState || isLoading) return;
 
     setIsLoading(true);
@@ -124,11 +124,11 @@ const GameInterface: React.FC<GameInterfaceProps> = ({ gameSession, onEndGame })
     try {
       const response = await gameApi.performAction({
         session_id: gameSession.sessionId,
-        action: action,
+        action: action
       });
 
       addToLog(response.message);
-
+      
       // Update game state
       const newState = await gameApi.getGameState(gameSession.sessionId);
       setGameState(newState);
@@ -138,7 +138,7 @@ const GameInterface: React.FC<GameInterfaceProps> = ({ gameSession, onEndGame })
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [gameState, isLoading, addToLog, gameSession.sessionId]);
 
   const handleSaveGame = async () => {
     try {
@@ -197,4 +197,3 @@ const GameInterface: React.FC<GameInterfaceProps> = ({ gameSession, onEndGame })
 };
 
 export default GameInterface;
-

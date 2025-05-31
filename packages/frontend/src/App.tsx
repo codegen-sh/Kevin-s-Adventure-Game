@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import GameInterface from './components/GameInterface';
 import StartScreen from './components/StartScreen';
@@ -63,4 +63,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
