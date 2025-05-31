@@ -34,6 +34,10 @@ def get_item_description(item):
     }
     return item_descriptions.get(item, "A mysterious item.")
 
+def perform_item_action(player, world, item_name):
+    """Perform an action with an item (alias for use_item)"""
+    return use_item(player, item_name, world)
+
 def use_item(player, item, world):
     if item not in player["inventory"]:
         print(f"You don't have {item} in your inventory.")
@@ -155,7 +159,7 @@ def use_item(player, item, world):
         if world["current_location"] == "Mountain":
             print("The necklace begins to glow, revealing hidden runes on nearby rocks!")
             print("You discover a secret path leading to a hidden cave.")
-            # update_world_state(world, "reveal_hidden_cave")
+            # update_player_knowledge(player, "ancient_history")
         else:
             print("The necklace sparkles beautifully, but nothing else happens.")
         return True
