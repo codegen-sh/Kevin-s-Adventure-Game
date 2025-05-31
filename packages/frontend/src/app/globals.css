@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Georgia', serif;
+  }
+  
+  body {
+    @apply bg-adventure-bg text-adventure-text;
+  }
+}
+
+@layer components {
+  .adventure-card {
+    @apply bg-white rounded-lg shadow-lg border-2 border-adventure-secondary p-6;
+  }
+  
+  .adventure-button {
+    @apply bg-adventure-primary hover:bg-adventure-secondary text-white font-bold py-2 px-4 rounded transition-colors duration-200;
+  }
+  
+  .adventure-button-secondary {
+    @apply bg-adventure-accent hover:bg-yellow-600 text-adventure-text font-bold py-2 px-4 rounded transition-colors duration-200;
+  }
+  
+  .adventure-input {
+    @apply w-full px-3 py-2 border-2 border-adventure-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-adventure-primary focus:border-transparent;
+  }
+  
+  .adventure-text {
+    @apply font-adventure text-adventure-text leading-relaxed;
+  }
+  
+  .game-terminal {
+    @apply bg-gray-900 text-green-400 font-mono p-4 rounded-lg min-h-96 max-h-96 overflow-y-auto;
+  }
+}
+
