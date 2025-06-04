@@ -22,21 +22,25 @@ Your journey begins now. Good luck, adventurer!
 
 def print_help():
     """Print a formatted help message with available commands."""
-    help_text = """
-Available commands:
-- move [location]: Move to a new location
-- look: Examine your surroundings
-- inventory: Check your inventory
-- pickup [item]: Pick up an item
-- drop [item]: Drop an item from your inventory
-- use [item]: Use an item
-- examine [item]: Get a description of an item
-- status: Check your current status
-- interact: Interact with your current location
-- help: Show this help message
-- quit: Save and exit the game
-    """
-    print(help_text.strip())
+    print("\\n=== Kevin's Adventure Game - Help ===")
+    print("Available commands:")
+    print("  help - Show this help message")
+    print("  quit - Save and exit the game")
+    print("  go/move/travel - Show available locations")
+    print("  <location name> - Travel to a specific location")
+    print("  explore/interact/look - Interact with current location")
+    print("  inventory/inv/items - Show your inventory")
+    print("  status/stats - Show your current status")
+    print("  plugins - Show plugin system status")
+    print("\\nGame Tips:")
+    print("  - Explore different locations to find items and adventures")
+    print("  - Keep an eye on your health and gold")
+    print("  - Some locations have special interactions")
+    print("  - Your progress is automatically saved when you quit")
+    print("\\nPlugin Commands:")
+    print("  - Additional commands may be available through plugins")
+    print("  - Use 'plugins' to see what plugins are loaded")
+    print("  - Plugin-specific help will be shown with this command")
 
 def format_inventory(inventory):
     """Format the player's inventory for display."""
