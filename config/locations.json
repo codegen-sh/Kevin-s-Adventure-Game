@@ -1,0 +1,61 @@
+{
+  "locations": {
+    "Village": {
+      "description": "A small, peaceful village with thatched-roof houses and friendly inhabitants.",
+      "items": ["map", "bread"],
+      "connections": ["Forest", "Mountain"],
+      "features": ["shop", "inn", "villagers"],
+      "safe": true
+    },
+    "Forest": {
+      "description": "A dense, mysterious forest with towering trees and the sound of rustling leaves.",
+      "items": ["stick", "berries"],
+      "connections": ["Village", "Mountain", "Cave"],
+      "features": ["trees", "wildlife", "hidden_paths"],
+      "safe": false
+    },
+    "Mountain": {
+      "description": "A towering mountain with rocky paths and breathtaking views.",
+      "items": ["rope", "pickaxe"],
+      "connections": ["Village", "Forest"],
+      "features": ["peaks", "caves", "herbs", "hermit"],
+      "safe": false
+    },
+    "Cave": {
+      "description": "A dark, damp cave with echoing sounds and glittering minerals on the walls.",
+      "items": ["torch", "gemstone"],
+      "connections": ["Forest"],
+      "features": ["minerals", "darkness", "ancient_paintings"],
+      "safe": false
+    }
+  },
+  "location_events": {
+    "Village": {
+      "shop_items": ["bread", "torch", "rope", "sword"],
+      "inn_cost": 10,
+      "quest_givers": ["village_elder", "merchant"]
+    },
+    "Forest": {
+      "exploration_options": ["climb_tree", "listen", "forage", "explore_deeper"],
+      "wildlife": ["birds", "squirrels", "deer", "wolves"],
+      "hidden_features": ["secret_path", "ancient_tree"]
+    },
+    "Mountain": {
+      "climbing_options": ["use_rope", "search_herbs", "reach_peak", "explore_cave"],
+      "weather_effects": true,
+      "special_npcs": ["hermit"]
+    },
+    "Cave": {
+      "exploration_requires": "torch",
+      "mineral_types": ["gemstone", "ancient_coin", "gold_coin"],
+      "hidden_chambers": ["treasure_room", "underground_spring", "ancient_shrine"]
+    }
+  },
+  "world_settings": {
+    "starting_location": "Village",
+    "weather_enabled": true,
+    "day_night_cycle": false,
+    "random_events": true
+  }
+}
+
