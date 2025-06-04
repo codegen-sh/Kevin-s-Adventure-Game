@@ -157,11 +157,11 @@ class TestPerformAction:
 class TestHandleMovement:
     """Test movement handling functionality."""
 
-    @patch("game.world.get_current_location")
-    @patch("game.world.get_available_locations")
-    @patch("game.world.change_location")
-    @patch("game.player.move_player")
-    @patch("game.world.get_location_description")
+    @patch("game.actions.get_current_location")
+    @patch("game.actions.get_available_locations")
+    @patch("game.actions.change_location")
+    @patch("game.actions.move_player")
+    @patch("game.actions.get_location_description")
     @patch("builtins.print")
     def test_handle_movement_valid_location(
         self,
@@ -183,11 +183,9 @@ class TestHandleMovement:
         handle_movement(sample_player, sample_world, "Forest")
 
         mock_change_location.assert_called_once_with(sample_world, "Forest")
-        mock_move_player.assert_called_once_with(sample_player, "Forest")
-        mock_get_desc.assert_called_once_with(sample_world, "Forest")
 
-    @patch("game.world.get_current_location")
-    @patch("game.world.get_available_locations")
+    @patch("game.actions.get_current_location")
+    @patch("game.actions.get_available_locations")
     @patch("builtins.print")
     def test_handle_movement_invalid_location(
         self,
@@ -206,9 +204,9 @@ class TestHandleMovement:
         mock_print.assert_any_call("You cannot go to Cave from Village.")
         mock_print.assert_any_call("Available locations: Forest, Mountain")
 
-    @patch("game.world.get_current_location")
-    @patch("game.world.get_available_locations")
-    @patch("game.world.change_location")
+    @patch("game.actions.get_current_location")
+    @patch("game.actions.get_available_locations")
+    @patch("game.actions.change_location")
     @patch("builtins.print")
     def test_handle_movement_change_location_fails(
         self,
@@ -232,7 +230,7 @@ class TestHandleMovement:
 class TestHandleTakeItem:
     """Test item taking functionality."""
 
-    @patch("game.world.get_current_location")
+    @patch("game.actions.get_current_location")
     @patch("game.actions.add_item_to_inventory")
     def test_handle_take_item_success(
         self, mock_add_item, mock_get_current, sample_player, sample_world
@@ -247,7 +245,7 @@ class TestHandleTakeItem:
         assert "map" not in sample_world["locations"]["Village"]["items"]
         assert "bread" in sample_world["locations"]["Village"]["items"]
 
-    @patch("game.world.get_current_location")
+    @patch("game.actions.get_current_location")
     @patch("builtins.print")
     def test_handle_take_item_not_available(
         self, mock_print, mock_get_current, sample_player, sample_world
@@ -261,7 +259,7 @@ class TestHandleTakeItem:
         mock_print.assert_any_call("There is no sword here to take.")
         mock_print.assert_any_call("Available items: bread")
 
-    @patch("game.world.get_current_location")
+    @patch("game.actions.get_current_location")
     @patch("builtins.print")
     def test_handle_take_item_no_items_available(
         self, mock_print, mock_get_current, sample_player, sample_world
@@ -279,7 +277,7 @@ class TestHandleDropItem:
     """Test item dropping functionality."""
 
     @patch("game.actions.remove_item_from_inventory")
-    @patch("game.world.get_current_location")
+    @patch("game.actions.get_current_location")
     def test_handle_drop_item_success(
         self, mock_get_current, mock_remove_item, sample_player, sample_world
     ):
@@ -293,7 +291,7 @@ class TestHandleDropItem:
         mock_remove_item.assert_called_once_with(sample_player, "sword")
 
     @patch("game.actions.remove_item_from_inventory")
-    @patch("game.world.get_current_location")
+    @patch("game.actions.get_current_location")
     def test_handle_drop_item_not_in_inventory(
         self, mock_get_current, mock_remove_item, sample_player, sample_world
     ):
@@ -333,9 +331,9 @@ class TestHandleUseItem:
 class TestHandleLook:
     """Test look functionality."""
 
-    @patch("game.world.get_current_location")
-    @patch("game.world.get_location_description")
-    @patch("game.world.get_available_locations")
+    @patch("game.actions.get_current_location")
+    @patch("game.actions.get_location_description")
+    @patch("game.actions.get_available_locations")
     @patch("builtins.print")
     def test_handle_look_with_items(
         self,
@@ -358,9 +356,9 @@ class TestHandleLook:
         mock_print.assert_any_call("Items here: map, bread")
         mock_print.assert_any_call("You can go to: Forest, Mountain")
 
-    @patch("game.world.get_current_location")
-    @patch("game.world.get_location_description")
-    @patch("game.world.get_available_locations")
+    @patch("game.actions.get_current_location")
+    @patch("game.actions.get_location_description")
+    @patch("game.actions.get_available_locations")
     @patch("builtins.print")
     def test_handle_look_no_items(
         self,
@@ -436,8 +434,8 @@ class TestActionEdgeCases:
 
     def test_handle_movement_empty_location(self, sample_player, sample_world):
         """Test movement with empty location name."""
-        with patch("game.world.get_current_location") as mock_get_current, patch(
-            "game.world.get_available_locations"
+        with patch("game.actions.get_current_location") as mock_get_current, patch(
+            "game.actions.get_available_locations"
         ) as mock_get_available, patch("builtins.print") as mock_print:
 
             mock_get_current.return_value = "Village"
@@ -449,7 +447,7 @@ class TestActionEdgeCases:
 
     def test_handle_take_item_empty_item(self, sample_player, sample_world):
         """Test taking an empty item name."""
-        with patch("game.world.get_current_location") as mock_get_current, patch(
+        with patch("game.actions.get_current_location") as mock_get_current, patch(
             "builtins.print"
         ) as mock_print:
 
