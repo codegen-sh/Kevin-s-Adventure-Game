@@ -1,0 +1,113 @@
+{
+  "mountain": {
+    "entrance_message": "You begin climbing the steep mountain path. The air grows thinner as you ascend.",
+    "actions": {
+      "climb_higher": {
+        "name": "Climb higher",
+        "description": "Continue ascending the mountain",
+        "events": [
+          {
+            "name": "find_herbs",
+            "probability": 35,
+            "message": "You discover some rare medicinal herbs growing on a rocky ledge!",
+            "reward": "mountain_herbs"
+          },
+          {
+            "name": "meet_hermit",
+            "probability": 20,
+            "message": "You encounter a wise hermit living in a small cave.",
+            "effect": "hermit_encounter"
+          },
+          {
+            "name": "difficult_climb",
+            "probability": 25,
+            "message": "The climb becomes treacherous. You slip and get scraped.",
+            "damage_range": [3, 8]
+          },
+          {
+            "name": "beautiful_view",
+            "probability": 20,
+            "message": "You reach a scenic overlook with a breathtaking view of the valley below."
+          }
+        ]
+      },
+      "search_for_minerals": {
+        "name": "Search for minerals",
+        "description": "Look for valuable stones and minerals",
+        "message": "You search the rocky outcroppings for valuable minerals.",
+        "events": [
+          {
+            "name": "find_crystal",
+            "probability": 25,
+            "message": "You find a beautiful crystal formation!",
+            "reward": "crystal"
+          },
+          {
+            "name": "find_ancient_coin",
+            "probability": 20,
+            "message": "You discover an ancient coin embedded in the rock!",
+            "reward": "ancient_coin"
+          },
+          {
+            "name": "nothing_valuable",
+            "probability": 55,
+            "message": "You don't find anything particularly valuable."
+          }
+        ]
+      },
+      "use_rope": {
+        "name": "Use rope (if you have one)",
+        "description": "Use rope to access difficult areas",
+        "requires_item": "rope",
+        "with_rope": {
+          "message": "You secure your rope and access a previously unreachable ledge.",
+          "events": [
+            {
+              "name": "hidden_treasure",
+              "probability": 60,
+              "message": "You find a hidden cache of treasure!",
+              "reward": "ancient_artifact"
+            },
+            {
+              "name": "safe_passage",
+              "probability": 40,
+              "message": "The rope allows you to navigate safely."
+            }
+          ]
+        },
+        "without_rope": {
+          "message": "You need a rope to safely access the higher ledges."
+        }
+      },
+      "rest_on_ledge": {
+        "name": "Rest on a ledge",
+        "description": "Take a break on a mountain ledge",
+        "message": "You find a comfortable ledge and rest for a while.",
+        "effects": {
+          "heal": 15,
+          "message": "The mountain air is refreshing and helps you recover."
+        }
+      },
+      "talk_to_hermit": {
+        "name": "Talk to hermit (if present)",
+        "description": "Speak with the mountain hermit",
+        "requires_encounter": "hermit",
+        "message": "The hermit shares ancient wisdom with you.",
+        "events": [
+          {
+            "name": "receive_blessing",
+            "probability": 70,
+            "message": "The hermit gives you a mystical blessing!",
+            "reward": "hermit's_blessing"
+          },
+          {
+            "name": "wise_advice",
+            "probability": 30,
+            "message": "The hermit offers you valuable advice about your journey."
+          }
+        ]
+      }
+    }
+  }
+}
+

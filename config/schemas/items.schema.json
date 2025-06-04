@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Items Configuration Schema",
+  "description": "Schema for validating items configuration files",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Display name of the item"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the item"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["tool", "consumable", "valuable", "magical", "currency", "weapon", "quest_item"],
+              "description": "Type category of the item"
+            },
+            "consumable": {
+              "type": "boolean",
+              "description": "Whether the item is consumed when used"
+            },
+            "effects": {
+              "type": "object",
+              "description": "Effects and actions when the item is used"
+            }
+          },
+          "required": ["name", "description", "type", "consumable"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false
+}
+

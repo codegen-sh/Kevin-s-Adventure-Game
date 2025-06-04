@@ -1,0 +1,24 @@
+{
+  "player": {
+    "starting_health": 100,
+    "max_health": 100,
+    "starting_gold": 100,
+    "starting_location": "Village",
+    "starting_inventory": []
+  },
+  "game": {
+    "save_file_extension": ".sav",
+    "max_inventory_size": null,
+    "auto_save": false,
+    "difficulty": "normal"
+  },
+  "combat": {
+    "base_damage_range": [5, 15],
+    "healing_cap": 100
+  },
+  "economy": {
+    "currency_name": "gold",
+    "starting_currency": 100
+  }
+}
+
