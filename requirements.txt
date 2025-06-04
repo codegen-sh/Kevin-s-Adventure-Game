@@ -1,0 +1,13 @@
+# Kevin's Adventure Game Requirements
+# This project uses only Python standard library modules
+# No external dependencies required
+
+# Development dependencies (optional)
+# Uncomment these for development work:
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.0.0
+# pytest>=7.0.0
+# sphinx>=5.0.0
+# pre-commit>=3.0.0
+
