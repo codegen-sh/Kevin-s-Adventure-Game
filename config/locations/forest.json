@@ -1,0 +1,79 @@
+{
+  "forest": {
+    "entrance_message": "You enter the lush, green forest. The canopy above filters the sunlight into dancing patterns.",
+    "actions": {
+      "explore_deeper": {
+        "name": "Explore deeper",
+        "description": "Venture further into the forest",
+        "events": [
+          {
+            "name": "find_berries",
+            "probability": 40,
+            "message": "You stumble upon a bush full of ripe berries!",
+            "reward": "berries"
+          },
+          {
+            "name": "find_mushrooms",
+            "probability": 30,
+            "message": "You discover some wild mushrooms growing near a fallen log.",
+            "reward": "mushrooms"
+          },
+          {
+            "name": "encounter_animal",
+            "probability": 20,
+            "message": "A small woodland creature scurries past you.",
+            "effect": "none"
+          },
+          {
+            "name": "nothing",
+            "probability": 10,
+            "message": "You explore deeper but find nothing of interest."
+          }
+        ]
+      },
+      "climb_tree": {
+        "name": "Climb a tree",
+        "description": "Climb a tall tree to get a better view",
+        "message": "You climb a sturdy oak tree and get a bird's eye view of the area.",
+        "events": [
+          {
+            "name": "spot_cave",
+            "probability": 50,
+            "message": "From up here, you can see the entrance to a cave in the distance!",
+            "effect": "reveal_cave"
+          },
+          {
+            "name": "nice_view",
+            "probability": 50,
+            "message": "You enjoy the peaceful view of the forest canopy."
+          }
+        ]
+      },
+      "search_for_sticks": {
+        "name": "Search for sticks",
+        "description": "Look for useful wooden sticks",
+        "message": "You search the forest floor for sturdy sticks.",
+        "events": [
+          {
+            "name": "find_stick",
+            "probability": 70,
+            "message": "You find a perfect walking stick!",
+            "reward": "stick"
+          },
+          {
+            "name": "nothing",
+            "probability": 30,
+            "message": "You don't find any suitable sticks."
+          }
+        ]
+      },
+      "listen_to_nature": {
+        "name": "Listen to nature",
+        "description": "Stop and listen to the forest sounds",
+        "message": "You stop and listen to the peaceful sounds of the forest.",
+        "additional_message": "Birds chirp overhead, leaves rustle in the breeze, and somewhere in the distance, you hear the sound of running water."
+      }
+    }
+  }
+}
+

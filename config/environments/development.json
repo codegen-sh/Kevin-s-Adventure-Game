@@ -1,0 +1,20 @@
+{
+  "base": {
+    "player": {
+      "starting_health": 200,
+      "starting_gold": 1000
+    },
+    "game": {
+      "auto_save": true,
+      "difficulty": "easy"
+    }
+  },
+  "random_events": {
+    "global_event_probability": {
+      "find_item": 50,
+      "encounter": 10,
+      "trap": 5
+    }
+  }
+}
+

@@ -1,0 +1,31 @@
+{
+  "village_shop": {
+    "name": "Village General Store",
+    "shopkeeper_name": "Merchant Bob",
+    "shopkeeper_greeting": "Welcome to my shop! Take a look at what I have for sale.",
+    "currency": "gold",
+    "inventory": {
+      "bread": {
+        "price": 5,
+        "stock": -1,
+        "description": "Fresh bread, baked daily"
+      },
+      "torch": {
+        "price": 10,
+        "stock": -1,
+        "description": "A reliable torch for dark places"
+      },
+      "rope": {
+        "price": 15,
+        "stock": 5,
+        "description": "Strong rope for climbing"
+      },
+      "sword": {
+        "price": 50,
+        "stock": 2,
+        "description": "A well-crafted sword"
+      }
+    }
+  }
+}
+
