@@ -1,0 +1,36 @@
+{
+  "item_descriptions": {
+    "map": "An old, worn map of the surrounding area. It might help you navigate.",
+    "bread": "A fresh loaf of bread. It looks delicious and nutritious.",
+    "stick": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
+    "berries": "A handful of colorful berries. They might be edible... or not.",
+    "torch": "A flaming torch that provides light in dark areas.",
+    "gemstone": "A sparkling gemstone. It looks valuable.",
+    "rope": "A coil of strong rope. Useful for climbing or tying things.",
+    "pickaxe": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
+    "mushrooms": "Some wild mushrooms. They could be edible or poisonous.",
+    "mountain_herbs": "Rare medicinal herbs found on the mountain. They might have healing properties.",
+    "ancient_coin": "An old coin with strange markings. It might be valuable to collectors.",
+    "hermit's_blessing": "A mystical blessing from the mountain hermit. It fills you with energy.",
+    "gold_coin": "A shiny gold coin. Standard currency in this realm.",
+    "silver_necklace": "A delicate silver necklace. It could fetch a good price.",
+    "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
+    "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
+    "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
+    "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
+  },
+  "item_categories": {
+    "consumables": ["bread", "berries", "mushrooms", "mountain_herbs", "hermit's_blessing", "mysterious_potion"],
+    "tools": ["map", "stick", "torch", "rope", "pickaxe", "sword"],
+    "valuables": ["gemstone", "ancient_coin", "gold_coin", "silver_necklace", "ancient_artifact", "magic_ring"],
+    "quest_items": ["hermit's_blessing", "ancient_artifact", "magic_ring"]
+  },
+  "item_rarity": {
+    "common": ["bread", "stick", "berries", "torch", "rope"],
+    "uncommon": ["map", "pickaxe", "mushrooms", "gold_coin"],
+    "rare": ["gemstone", "silver_necklace", "mountain_herbs", "sword"],
+    "epic": ["ancient_coin", "ancient_artifact", "mysterious_potion"],
+    "legendary": ["magic_ring", "hermit's_blessing"]
+  }
+}
+

@@ -1,42 +1,23 @@
 import textwrap
 
+from config import DISPLAY_SETTINGS, MESSAGES, HELP_TEXT
 
-def wrap_text(text, width=80):
+
+def wrap_text(text, width=None):
     """Wrap text to a specified width."""
+    if width is None:
+        width = DISPLAY_SETTINGS["text_width"]
     return textwrap.fill(text, width=width)
+
 
 def print_welcome_message():
     """Print a formatted welcome message for the game."""
-    welcome_text = """
-Welcome to Kevin's Adventure Game!
+    print(MESSAGES["welcome"].strip())
 
-Explore a world of mystery and danger as you navigate through
-forests, caves, villages, and mountains. Collect items, interact
-with characters, and uncover the secrets of this magical realm.
-
-Type 'help' at any time to see available commands.
-
-Your journey begins now. Good luck, adventurer!
-    """
-    print(welcome_text.strip())
 
 def print_help():
     """Print a formatted help message with available commands."""
-    help_text = """
-Available commands:
-- move [location]: Move to a new location
-- look: Examine your surroundings
-- inventory: Check your inventory
-- pickup [item]: Pick up an item
-- drop [item]: Drop an item from your inventory
-- use [item]: Use an item
-- examine [item]: Get a description of an item
-- status: Check your current status
-- interact: Interact with your current location
-- help: Show this help message
-- quit: Save and exit the game
-    """
-    print(help_text.strip())
+    print(HELP_TEXT.strip())
 
 def format_inventory(inventory):
     """Format the player's inventory for display."""
