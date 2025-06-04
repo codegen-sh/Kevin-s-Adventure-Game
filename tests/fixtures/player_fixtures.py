@@ -3,41 +3,50 @@ Test fixtures for player-related testing.
 """
 
 import pytest
+
 from game.player import create_player
 
 
 class PlayerFixtures:
     """Collection of player fixtures for testing."""
-    
+
     @staticmethod
     def basic_player():
         """Create a basic player with default stats."""
         return create_player("TestPlayer")
-    
+
     @staticmethod
     def damaged_player():
         """Create a player with reduced health."""
         player = create_player("DamagedPlayer")
         player["health"] = 25
         return player
-    
+
     @staticmethod
     def wealthy_player():
         """Create a player with lots of gold."""
         player = create_player("WealthyPlayer")
         player["gold"] = 1000
         return player
-    
+
     @staticmethod
     def equipped_player():
         """Create a player with a full inventory."""
         player = create_player("EquippedPlayer")
         player["inventory"] = [
-            "map", "bread", "stick", "berries", "torch", 
-            "gemstone", "rope", "pickaxe", "sword", "gold_coin"
+            "map",
+            "bread",
+            "stick",
+            "berries",
+            "torch",
+            "gemstone",
+            "rope",
+            "pickaxe",
+            "sword",
+            "gold_coin",
         ]
         return player
-    
+
     @staticmethod
     def explorer_player():
         """Create a player who has explored different locations."""
@@ -46,23 +55,25 @@ class PlayerFixtures:
         player["inventory"] = ["map", "torch", "rope"]
         player["gold"] = 150
         return player
-    
+
     @staticmethod
     def near_death_player():
         """Create a player with very low health."""
         player = create_player("NearDeath")
         player["health"] = 5
         return player
-    
+
     @staticmethod
     def dead_player():
         """Create a player with zero health."""
         player = create_player("DeadPlayer")
         player["health"] = 0
         return player
-    
+
     @staticmethod
-    def custom_player(name="Custom", health=100, gold=100, location="Village", inventory=None):
+    def custom_player(
+        name="Custom", health=100, gold=100, location="Village", inventory=None
+    ):
         """Create a custom player with specified attributes."""
         player = create_player(name)
         player["health"] = health
@@ -122,12 +133,9 @@ def player_factory():
 
 
 # Parameterized fixtures for testing multiple player states
-@pytest.fixture(params=[
-    ("healthy", 100),
-    ("damaged", 50),
-    ("critical", 10),
-    ("near_death", 1)
-])
+@pytest.fixture(
+    params=[("healthy", 100), ("damaged", 50), ("critical", 10), ("near_death", 1)]
+)
 def player_with_health(request):
     """Parameterized fixture for players with different health levels."""
     health_name, health_value = request.param
@@ -136,12 +144,9 @@ def player_with_health(request):
     return player
 
 
-@pytest.fixture(params=[
-    ("poor", 10),
-    ("average", 100),
-    ("rich", 500),
-    ("wealthy", 1000)
-])
+@pytest.fixture(
+    params=[("poor", 10), ("average", 100), ("rich", 500), ("wealthy", 1000)]
+)
 def player_with_gold(request):
     """Parameterized fixture for players with different gold amounts."""
     wealth_name, gold_value = request.param
@@ -150,12 +155,14 @@ def player_with_gold(request):
     return player
 
 
-@pytest.fixture(params=[
-    ("Village", []),
-    ("Forest", ["stick"]),
-    ("Cave", ["torch"]),
-    ("Mountain", ["rope", "pickaxe"])
-])
+@pytest.fixture(
+    params=[
+        ("Village", []),
+        ("Forest", ["stick"]),
+        ("Cave", ["torch"]),
+        ("Mountain", ["rope", "pickaxe"]),
+    ]
+)
 def player_in_location(request):
     """Parameterized fixture for players in different locations with appropriate items."""
     location, items = request.param
@@ -224,10 +231,18 @@ def player_with_special_characters():
 def player_party():
     """Fixture that returns multiple players for party-based testing."""
     return [
-        PlayerFixtures.custom_player("Leader", health=100, gold=200, inventory=["sword", "map"]),
-        PlayerFixtures.custom_player("Healer", health=80, gold=150, inventory=["bread", "berries"]),
-        PlayerFixtures.custom_player("Scout", health=90, gold=100, inventory=["torch", "rope"]),
-        PlayerFixtures.custom_player("Miner", health=100, gold=50, inventory=["pickaxe", "torch"])
+        PlayerFixtures.custom_player(
+            "Leader", health=100, gold=200, inventory=["sword", "map"]
+        ),
+        PlayerFixtures.custom_player(
+            "Healer", health=80, gold=150, inventory=["bread", "berries"]
+        ),
+        PlayerFixtures.custom_player(
+            "Scout", health=90, gold=100, inventory=["torch", "rope"]
+        ),
+        PlayerFixtures.custom_player(
+            "Miner", health=100, gold=50, inventory=["pickaxe", "torch"]
+        ),
     ]
 
 
@@ -236,8 +251,15 @@ def players_at_different_stages():
     """Fixture with players at different game progression stages."""
     return {
         "beginner": PlayerFixtures.custom_player("Beginner", inventory=["map"]),
-        "intermediate": PlayerFixtures.custom_player("Intermediate", gold=200, inventory=["map", "sword", "torch"]),
-        "advanced": PlayerFixtures.custom_player("Advanced", gold=500, inventory=["sword", "pickaxe", "rope", "gemstone"]),
-        "expert": PlayerFixtures.custom_player("Expert", gold=1000, inventory=["sword", "pickaxe", "rope", "gemstone", "ancient_artifact"])
+        "intermediate": PlayerFixtures.custom_player(
+            "Intermediate", gold=200, inventory=["map", "sword", "torch"]
+        ),
+        "advanced": PlayerFixtures.custom_player(
+            "Advanced", gold=500, inventory=["sword", "pickaxe", "rope", "gemstone"]
+        ),
+        "expert": PlayerFixtures.custom_player(
+            "Expert",
+            gold=1000,
+            inventory=["sword", "pickaxe", "rope", "gemstone", "ancient_artifact"],
+        ),
     }
-

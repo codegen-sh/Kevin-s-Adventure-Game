@@ -7,4 +7,3 @@ This package contains comprehensive tests for all game modules including:
 - Scenario tests for complete gameplay workflows
 - Performance tests for critical operations
 """
-

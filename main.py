@@ -10,7 +10,7 @@ def main():
 
     # Add load game option
     load_option = input("Do you want to load a saved game? (y/n): ").lower()
-    if load_option == 'y':
+    if load_option == "y":
         save_files = list_save_files()
         if save_files:
             print("Available save files:")
@@ -45,6 +45,7 @@ def main():
             print_help()
         else:
             perform_action(player, world, action)
+
 
 if __name__ == "__main__":
     main()

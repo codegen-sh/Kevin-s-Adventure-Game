@@ -1,13 +1,9 @@
 import random
 
-from game.player import (
-    add_item_to_inventory,
-    damage_player,
-    heal_player,
-    move_player,
-    remove_item_from_inventory,
-)
-from game.world import change_location, get_all_locations, get_available_locations
+from game.player import (add_item_to_inventory, damage_player, heal_player,
+                         move_player, remove_item_from_inventory)
+from game.world import (change_location, get_all_locations,
+                        get_available_locations)
 from utils.random_events import generate_random_event
 
 
@@ -30,9 +26,10 @@ def get_item_description(item):
         "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
         "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
         "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
-        "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
+        "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense.",
     }
     return item_descriptions.get(item, "A mysterious item.")
+
 
 def use_item(player, item, world):
     if item not in player["inventory"]:
@@ -70,17 +67,21 @@ def use_item(player, item, world):
         current_location = world["current_location"]
         if current_location == "Cave":
             print("You light the torch, illuminating the dark cave around you.")
-            world["locations"]["Cave"]["description"] += " The cave is now well-lit by your torch."
+            world["locations"]["Cave"][
+                "description"
+            ] += " The cave is now well-lit by your torch."
             return True
         else:
             print("You light the torch. It provides warmth and light.")
             return True
     elif item == "gemstone":
-        print("You examine the gemstone closely. It glimmers with an otherworldly light.")
+        print(
+            "You examine the gemstone closely. It glimmers with an otherworldly light."
+        )
         if world["current_location"] == "Village":
             print("A merchant notices your gemstone and offers to buy it for 50 gold!")
             choice = input("Do you want to sell the gemstone? (y/n): ").lower()
-            if choice == 'y':
+            if choice == "y":
                 player["gold"] += 50
                 remove_item_from_inventory(player, item)
                 print("You sold the gemstone for 50 gold.")
@@ -89,11 +90,15 @@ def use_item(player, item, world):
         return True
     elif item == "rope":
         if world["current_location"] == "Mountain":
-            print("You use the rope to safely navigate a treacherous part of the mountain.")
+            print(
+                "You use the rope to safely navigate a treacherous part of the mountain."
+            )
             heal_player(player, 5)
             print("Your climbing technique improves, and you feel more confident.")
         else:
-            print("You coil and uncoil the rope. It might be useful in the right situation.")
+            print(
+                "You coil and uncoil the rope. It might be useful in the right situation."
+            )
         return True
     elif item == "pickaxe":
         print("You swing the pickaxe, but there's nothing here to mine.")
@@ -115,19 +120,28 @@ def use_item(player, item, world):
         remove_item_from_inventory(player, item)
         return True
     elif item == "ancient_coin":
-        print("You flip the ancient coin. As it spins in the air, you feel a strange energy...")
-        if generate_random_event(events=[("teleport", 50), ("reveal_secret", 50)]) == "teleport":
+        print(
+            "You flip the ancient coin. As it spins in the air, you feel a strange energy..."
+        )
+        if (
+            generate_random_event(events=[("teleport", 50), ("reveal_secret", 50)])
+            == "teleport"
+        ):
             new_location = random.choice(get_all_locations(world))
             change_location(world, new_location)
             move_player(player, new_location)
-            print(f"The coin vanishes and you find yourself teleported to {new_location}!")
+            print(
+                f"The coin vanishes and you find yourself teleported to {new_location}!"
+            )
         else:
             print("The coin glows and reveals a secret about your current location!")
             # You might want to add some location-specific secrets here
         remove_item_from_inventory(player, item)
         return True
     elif item == "hermit's_blessing":
-        print("You invoke the hermit's blessing. A warm, comforting light envelops you.")
+        print(
+            "You invoke the hermit's blessing. A warm, comforting light envelops you."
+        )
         heal_player(player, 50)
         print("You feel completely refreshed and your mind is clear.")
         remove_item_from_inventory(player, item)
@@ -135,15 +149,21 @@ def use_item(player, item, world):
     elif item == "sword":
         print("You swing the sword, practicing your combat moves.")
         if world["current_location"] == "Forest":
-            print("Your sword slices through some thick vines, revealing a hidden path!")
+            print(
+                "Your sword slices through some thick vines, revealing a hidden path!"
+            )
             # update_world_state(world, "reveal_hidden_path")
         return True
     elif item == "gold_coin":
         print("You flip the gold coin. It catches the light, shimmering brilliantly.")
         if world["current_location"] == "Village":
-            print("A street vendor notices your coin and offers you a mysterious potion in exchange.")
-            choice = input("Do you want to trade the gold coin for the potion? (y/n): ").lower()
-            if choice == 'y':
+            print(
+                "A street vendor notices your coin and offers you a mysterious potion in exchange."
+            )
+            choice = input(
+                "Do you want to trade the gold coin for the potion? (y/n): "
+            ).lower()
+            if choice == "y":
                 remove_item_from_inventory(player, item)
                 add_item_to_inventory(player, "mysterious_potion")
                 print("You traded the gold coin for a mysterious potion.")
@@ -153,19 +173,29 @@ def use_item(player, item, world):
     elif item == "silver_necklace":
         print("You hold up the silver necklace, admiring its craftsmanship.")
         if world["current_location"] == "Mountain":
-            print("The necklace begins to glow, revealing hidden runes on nearby rocks!")
+            print(
+                "The necklace begins to glow, revealing hidden runes on nearby rocks!"
+            )
             print("You discover a secret path leading to a hidden cave.")
             # update_world_state(world, "reveal_hidden_cave")
         else:
             print("The necklace sparkles beautifully, but nothing else happens.")
         return True
     elif item == "ancient_artifact":
-        print("You examine the ancient artifact closely, turning it over in your hands.")
-        if generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "wisdom":
+        print(
+            "You examine the ancient artifact closely, turning it over in your hands."
+        )
+        if (
+            generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)])
+            == "wisdom"
+        ):
             print("Suddenly, knowledge of the ancient world floods your mind!")
             print("You gain insight into the history of this land.")
             # update_player_knowledge(player, "ancient_history")
-        elif generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "curse":
+        elif (
+            generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)])
+            == "curse"
+        ):
             print("A dark energy emanates from the artifact, making you feel weak.")
             damage_player(player, 10)
             print("You quickly put the artifact away, feeling drained.")
@@ -176,8 +206,10 @@ def use_item(player, item, world):
         print(f"You're not sure how to use the {item}.")
         return False
 
+
 def get_available_items(world, location):
     return world["locations"][location]["items"]
+
 
 def add_item_to_world(world, location, item):
     if item not in world["locations"][location]["items"]:
@@ -186,11 +218,13 @@ def add_item_to_world(world, location, item):
     else:
         print(f"There's already a {item} in {location}.")
 
+
 def remove_item_from_world(world, location, item):
     if item in world["locations"][location]["items"]:
         world["locations"][location]["items"].remove(item)
         return True
     return False
+
 
 def transfer_item(player, world, item, from_inventory_to_world=True):
     current_location = world["current_location"]
