@@ -64,3 +64,7 @@ def print_game_over():
     print_separator("=")
     print(game_over_text)
     print_separator("=")
+
+def print_invalid_action(action):
+    """Print a message for invalid actions."""
+    print(f"I don't understand '{action}'. Type 'help' for available commands.")
