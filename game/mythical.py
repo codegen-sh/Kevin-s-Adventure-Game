@@ -20,7 +20,9 @@ def summon_mythical_creature(world, player, creature_type):
         print("A graceful unicorn materializes before you!")
         add_item_to_inventory(player, "unicorn_hair")
     elif creature_type == "dragon":
-        print("A powerful dragon descends from the sky! The dragon is friendly and will help you.")
+        print(
+            "A powerful dragon descends from the sky! The dragon is friendly and will help you."
+        )
         add_item_to_inventory(player, "dragon_scale")
     else:
         print(f"Unknown creature type: {creature_type}")

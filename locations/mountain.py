@@ -1,10 +1,6 @@
 from game.mythical import summon_mythical_creature
-from game.player import (
-    add_item_to_inventory,
-    damage_player,
-    heal_player,
-    remove_item_from_inventory,
-)
+from game.player import (add_item_to_inventory, damage_player, heal_player,
+                         remove_item_from_inventory)
 from game.state import update_world_state
 from utils.random_events import generate_random_event
 
@@ -39,14 +35,17 @@ def climb_mountain(world, player):
         else:
             print("Invalid choice. Please try again.")
 
+
 def check_weather(world, player):
     print("You pause to check the weather conditions.")
     # TODO: Implement weather system
     # weather = get_current_weather(world)
-    event = generate_random_event(events = [("clear_skies", 50), ("incoming_storm", 50)])
+    event = generate_random_event(events=[("clear_skies", 50), ("incoming_storm", 50)])
 
     if event == "clear_skies":
-        print("The skies are clear, offering a breathtaking view of the surrounding lands.")
+        print(
+            "The skies are clear, offering a breathtaking view of the surrounding lands."
+        )
         # update_world_state(world, "improve_visibility")
     elif event == "incoming_storm":
         print("You notice dark clouds gathering. A storm might be approaching.")
@@ -54,9 +53,12 @@ def check_weather(world, player):
     else:
         print("The weather seems stable for now.")
 
+
 def use_climbing_gear(world, player):
     if "rope" in player["inventory"]:
-        print("You use your rope to safely navigate a particularly treacherous part of the path.")
+        print(
+            "You use your rope to safely navigate a particularly treacherous part of the path."
+        )
         heal_player(player, 5)
         print("Your careful climbing technique leaves you feeling confident.")
     else:
@@ -64,13 +66,15 @@ def use_climbing_gear(world, player):
         damage_player(player, 10)
         print("You slip and take some damage while climbing. Be more careful!")
 
+
 def search_for_herbs(world, player):
     print("You search the mountainside for rare herbs.")
-    if generate_random_event(events = [("find_herbs", 30), (None, 70)]) == "find_herbs":
+    if generate_random_event(events=[("find_herbs", 30), (None, 70)]) == "find_herbs":
         print("You find some rare medicinal herbs!")
         add_item_to_inventory(player, "mountain_herbs")
     else:
         print("You don't find any useful herbs this time.")
+
 
 def reach_peak(world, player):
     print("You finally reach the mountain peak!")
@@ -78,18 +82,26 @@ def reach_peak(world, player):
         print("You find the hermit's hut and deliver the mysterious package.")
         remove_item_from_inventory(player, "mysterious_package")
         add_item_to_inventory(player, "hermit's_blessing")
-        print("The hermit thanks you and gives you their blessing, which fills you with energy.")
+        print(
+            "The hermit thanks you and gives you their blessing, which fills you with energy."
+        )
         heal_player(player, 100)
         # summon_mythical_creature(world, player, "phoenix")
 
-    print("The view from the top is spectacular. You can see the entire game world spread out before you.")
+    print(
+        "The view from the top is spectacular. You can see the entire game world spread out before you."
+    )
     # update_world_state(world, "reveal_map")
+
 
 def explore_mountain_cave(world, player):
     print("You discover a small cave entrance on the mountainside.")
     if "torch" in player["inventory"]:
         print("You use your torch to explore the mountain cave.")
-        if generate_random_event(events = [("find_treasure", 20), (None, 80)]) == "find_treasure":
+        if (
+            generate_random_event(events=[("find_treasure", 20), (None, 80)])
+            == "find_treasure"
+        ):
             print("You discover an old treasure chest hidden in the cave!")
             add_item_to_inventory(player, "ancient_coin")
         else:
