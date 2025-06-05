@@ -1,53 +1,55 @@
-from locations.cave import explore_cave
+from typing import Dict, Any, List
 from locations.forest import enter_forest
 from locations.mountain import climb_mountain
 from locations.village import visit_village
+from game.constants import Locations
 
 
-def initialize_world():
-    return {
-        "current_location": "Village",
+def initialize_world() -> Dict[str, Any]:
+    """Initialize the game world with all locations and their properties."""
+    world = {
+        "current_location": Locations.VILLAGE,
+        "weather": "sunny",
         "locations": {
-            "Village": {
-                "description": "A small, peaceful village with thatched-roof houses and friendly inhabitants.",
-                "connections": ["Forest", "Mountain"],
-                "items": ["map", "bread"]
+            Locations.VILLAGE: {
+                "description": "A peaceful village with friendly inhabitants. You can see a shop, an inn, and villagers going about their daily business.",
+                "items": ["bread", "map"],
+                "accessible_from": [Locations.FOREST, Locations.MOUNTAIN],
+                "connections": [Locations.FOREST, Locations.MOUNTAIN]
             },
-            "Forest": {
-                "description": "A dense, mysterious forest with towering trees and the sound of rustling leaves.",
-                "connections": ["Village", "Cave"],
-                "items": ["stick", "berries"]
+            Locations.FOREST: {
+                "description": "A dense, mysterious forest filled with tall trees and hidden paths. Sunlight filters through the canopy above.",
+                "items": ["stick", "berries"],
+                "accessible_from": [Locations.VILLAGE, Locations.MOUNTAIN],
+                "connections": [Locations.VILLAGE, Locations.MOUNTAIN]
             },
-            "Cave": {
-                "description": "A dark, damp cave with echoing sounds and glittering minerals on the walls.",
-                "connections": ["Forest"],
-                "items": ["torch", "gemstone"]
-            },
-            "Mountain": {
-                "description": "A tall, snow-capped mountain with treacherous paths and breathtaking views.",
-                "connections": ["Village"],
-                "items": ["rope", "pickaxe"]
+            Locations.MOUNTAIN: {
+                "description": "A towering mountain with rocky paths and breathtaking views. The air is thin and crisp here.",
+                "items": ["rope", "mountain_herbs"],
+                "accessible_from": [Locations.VILLAGE, Locations.FOREST],
+                "connections": [Locations.VILLAGE, Locations.FOREST]
             }
         }
     }
+    return world
 
-def get_current_location(world):
+def get_current_location(world: Dict[str, Any]) -> str:
     return world["current_location"]
 
-def get_location_description(world, location):
+def get_location_description(world: Dict[str, Any], location: str) -> str:
     return world["locations"][location]["description"]
 
-def get_available_locations(world):
+def get_available_locations(world: Dict[str, Any]) -> List[str]:
     current_location = get_current_location(world)
     return world["locations"][current_location]["connections"]
 
-def change_location(world, new_location):
+def change_location(world: Dict[str, Any], new_location: str) -> bool:
     if new_location in get_available_locations(world):
         world["current_location"] = new_location
         return True
     return False
 
-def interact_with_location(world, player):
+def interact_with_location(world: Dict[str, Any], player: Any) -> None:
     current_location = get_current_location(world)
 
     if current_location == "Forest":
@@ -61,8 +63,8 @@ def interact_with_location(world, player):
     else:
         print("There's nothing special to interact with here.")
 
-def is_location_accessible(world, location):
+def is_location_accessible(world: Dict[str, Any], location: str) -> bool:
     return location in get_available_locations(world)
 
-def get_all_locations(world):
+def get_all_locations(world: Dict[str, Any]) -> List[str]:
     return list(world["locations"].keys())
