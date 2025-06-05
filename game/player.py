@@ -1,41 +1,70 @@
-from utils.text_formatting import format_inventory, print_game_over
+from typing import Dict, Any, List
+from game.constants import DEFAULT_HEALTH, DEFAULT_GOLD, MAX_HEALTH, MIN_HEALTH, Messages
+from game.exceptions import InsufficientHealthError
 
 
-def create_player(name):
+def create_player(name: str) -> Dict[str, Any]:
+    """Create a new player with default stats."""
     return {
         "name": name,
-        "health": 100,
+        "health": DEFAULT_HEALTH,
+        "gold": DEFAULT_GOLD,
         "inventory": [],
-        "location": "Village",
-        "gold": 100
+        "location": "Village"
     }
 
-def get_player_status(player):
-    return f"Health: {player['health']} | Inventory: {format_inventory(player['inventory'])} | Gold: {player['gold']}"
 
-def add_item_to_inventory(player, item):
-    player['inventory'].append(item)
-    print(f"You picked up: {item}")
+def get_player_status(player: Dict[str, Any]) -> str:
+    """Get a formatted string of the player's current status."""
+    health = player.get("health", 0)
+    gold = player.get("gold", 0)
+    inventory_count = len(player.get("inventory", []))
+    
+    return f"Health: {health}/{MAX_HEALTH} | Gold: {gold} | Items: {inventory_count}"
 
-def remove_item_from_inventory(player, item):
-    if item in player['inventory']:
-        player['inventory'].remove(item)
-        print(f"You dropped: {item}")
+
+def add_item_to_inventory(player: Dict[str, Any], item: str) -> bool:
+    """Add an item to the player's inventory."""
+    if "inventory" not in player:
+        player["inventory"] = []
+    
+    player["inventory"].append(item)
+    return True
+
+
+def remove_item_from_inventory(player: Dict[str, Any], item: str) -> bool:
+    """Remove an item from the player's inventory."""
+    inventory = player.get("inventory", [])
+    if item in inventory:
+        inventory.remove(item)
         return True
-    else:
-        print(f"You don't have {item} in your inventory.")
+    return False
 
-def move_player(player, new_location):
-    player['location'] = new_location
-    print(f"You moved to: {new_location}")
 
-def heal_player(player, amount):
-    player['health'] = min(100, player['health'] + amount)
-    print(f"You healed for {amount} health. Current health: {player['health']}")
+def move_player(player: Dict[str, Any], new_location: str) -> None:
+    """Move the player to a new location."""
+    player["location"] = new_location
 
-def damage_player(player, amount):
-    player['health'] = max(0, player['health'] - amount)
-    print(f"You took {amount} damage. Current health: {player['health']}")
-    if player['health'] == 0:
-        print("You have been defeated.")
-        print_game_over()
+
+def heal_player(player: Dict[str, Any], amount: int) -> int:
+    """
+    Heal the player by the specified amount.
+    
+    Returns:
+        int: The actual amount healed
+    """
+    current_health = player.get("health", 0)
+    new_health = min(current_health + amount, MAX_HEALTH)
+    actual_healed = new_health - current_health
+    player["health"] = new_health
+    return actual_healed
+
+
+def damage_player(player: Dict[str, Any], amount: int) -> None:
+    """Damage the player by the specified amount."""
+    current_health = player.get("health", MAX_HEALTH)
+    new_health = max(current_health - amount, MIN_HEALTH)
+    player["health"] = new_health
+    
+    if new_health <= MIN_HEALTH:
+        print(Messages.PLAYER_DEFEATED)
