@@ -1,0 +1,8 @@
+# TruffleHog ignore patterns for Kevin's Adventure Game
+# This file contains patterns for files to exclude from secret scanning
+
+# Test files that should be ignored (contains fake secrets for testing)
+should_be_ignored\.py
+
+# Git objects containing the ignored files (more targeted)
+\.git/objects/.*/.*should_be_ignored.*
