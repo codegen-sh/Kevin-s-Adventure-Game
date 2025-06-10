@@ -1,0 +1,29 @@
+# TruffleHog ignore patterns
+# This file contains regex patterns for paths to exclude from secret scanning
+
+# Ignore all files in the config directory (our fake secrets)
+^config/.*
+
+# Ignore specific fake secret files
+^\.env\.example$
+^utils/fake_secrets\.js$
+
+# Common patterns you might want to ignore
+^node_modules/.*
+^\.git/.*
+^build/.*
+^dist/.*
+^target/.*
+^\.vscode/.*
+^\.idea/.*
+
+# Ignore test files that might contain fake secrets
+.*test.*
+.*spec.*
+.*mock.*
+
+# Ignore documentation that might have example secrets
+^docs/.*
+^README.*
+^CHANGELOG.*
+
