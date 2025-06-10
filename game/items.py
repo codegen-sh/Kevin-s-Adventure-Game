@@ -1,5 +1,6 @@
 import random
 
+from game.entity import Entity
 from game.player import (
     add_item_to_inventory,
     damage_player,
@@ -11,30 +12,75 @@ from game.world import change_location, get_all_locations, get_available_locatio
 from utils.random_events import generate_random_event
 
 
+class Item(Entity):
+    """
+    Represents an item in the game.
+    
+    This class handles item attributes and usage effects.
+    """
+    
+    def __init__(self, name, description="", consumable=False):
+        """
+        Initialize a new Item.
+        
+        Args:
+            name (str): The name of the item
+            description (str, optional): A description of the item
+            consumable (bool, optional): Whether the item is consumed on use
+        """
+        super().__init__(name, description)
+        self.consumable = consumable
+    
+    def use(self, player, world):
+        """
+        Use the item.
+        
+        Args:
+            player: The player using the item
+            world: The game world
+            
+        Returns:
+            bool: True if the item was used successfully, False otherwise
+        """
+        print(f"You use the {self.name}, but nothing happens.")
+        return True
+
+
+# Dictionary of item descriptions for backward compatibility
+ITEM_DESCRIPTIONS = {
+    "map": "An old, worn map of the surrounding area. It might help you navigate.",
+    "bread": "A fresh loaf of bread. It looks delicious and nutritious.",
+    "stick": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
+    "berries": "A handful of colorful berries. They might be edible... or not.",
+    "torch": "A flaming torch that provides light in dark areas.",
+    "gemstone": "A sparkling gemstone. It looks valuable.",
+    "rope": "A coil of strong rope. Useful for climbing or tying things.",
+    "pickaxe": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
+    "mushrooms": "Some wild mushrooms. They could be edible or poisonous.",
+    "mountain_herbs": "Rare medicinal herbs found on the mountain. They might have healing properties.",
+    "ancient_coin": "An old coin with strange markings. It might be valuable to collectors.",
+    "hermit's_blessing": "A mystical blessing from the mountain hermit. It fills you with energy.",
+    "gold_coin": "A shiny gold coin. Standard currency in this realm.",
+    "silver_necklace": "A delicate silver necklace. It could fetch a good price.",
+    "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
+    "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
+    "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
+    "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
+}
+
+
 def get_item_description(item):
-    item_descriptions = {
-        "map": "An old, worn map of the surrounding area. It might help you navigate.",
-        "bread": "A fresh loaf of bread. It looks delicious and nutritious.",
-        "stick": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
-        "berries": "A handful of colorful berries. They might be edible... or not.",
-        "torch": "A flaming torch that provides light in dark areas.",
-        "gemstone": "A sparkling gemstone. It looks valuable.",
-        "rope": "A coil of strong rope. Useful for climbing or tying things.",
-        "pickaxe": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
-        "mushrooms": "Some wild mushrooms. They could be edible or poisonous.",
-        "mountain_herbs": "Rare medicinal herbs found on the mountain. They might have healing properties.",
-        "ancient_coin": "An old coin with strange markings. It might be valuable to collectors.",
-        "hermit's_blessing": "A mystical blessing from the mountain hermit. It fills you with energy.",
-        "gold_coin": "A shiny gold coin. Standard currency in this realm.",
-        "silver_necklace": "A delicate silver necklace. It could fetch a good price.",
-        "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
-        "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
-        "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
-        "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
-    }
-    return item_descriptions.get(item, "A mysterious item.")
+    """Get the description of an item."""
+    if isinstance(item, Item):
+        return item.description
+    return ITEM_DESCRIPTIONS.get(item, "A mysterious item.")
+
 
 def use_item(player, item, world):
+    """Use an item."""
+    if isinstance(item, Item):
+        return item.use(player, world)
+    
     if item not in player["inventory"]:
         print(f"You don't have {item} in your inventory.")
         return False
@@ -176,24 +222,46 @@ def use_item(player, item, world):
         print(f"You're not sure how to use the {item}.")
         return False
 
+
 def get_available_items(world, location):
+    """Get a list of items available at a location."""
+    if hasattr(world, 'get_location'):
+        loc = world.get_location(location)
+        return loc.items if loc else []
     return world["locations"][location]["items"]
 
+
 def add_item_to_world(world, location, item):
+    """Add an item to a location in the world."""
+    if hasattr(world, 'get_location'):
+        loc = world.get_location(location)
+        if loc:
+            loc.add_item(item)
+            print(f"A {item} has been added to {location}.")
+        return
+    
     if item not in world["locations"][location]["items"]:
         world["locations"][location]["items"].append(item)
         print(f"A {item} has been added to {location}.")
     else:
         print(f"There's already a {item} in {location}.")
 
+
 def remove_item_from_world(world, location, item):
+    """Remove an item from a location in the world."""
+    if hasattr(world, 'get_location'):
+        loc = world.get_location(location)
+        return loc.remove_item(item) if loc else False
+    
     if item in world["locations"][location]["items"]:
         world["locations"][location]["items"].remove(item)
         return True
     return False
 
+
 def transfer_item(player, world, item, from_inventory_to_world=True):
-    current_location = world["current_location"]
+    """Transfer an item between the player's inventory and the world."""
+    current_location = world["current_location"] if isinstance(world, dict) else world.get_current_location()
 
     if from_inventory_to_world:
         if remove_item_from_inventory(player, item):
