@@ -4,5 +4,7 @@
 # Test files that should be ignored (contains fake secrets for testing)
 should_be_ignored\.py
 
-# Git objects containing the ignored files (more targeted)
-\.git/objects/.*/.*should_be_ignored.*
+# Git objects and internal files (but only for testing - be careful in production!)
+\.git/objects/.*
+\.git/logs/.*
+\.git/refs/.*
