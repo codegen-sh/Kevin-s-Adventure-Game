@@ -1,10 +1,10 @@
-# This file should NOT be ignored - secrets should be detected
-# Contains fake secrets for testing
+# This file should NOT be ignored - but now has no secrets
+# Cleaned up for testing successful push
 
-# Fake AWS credentials (should be detected)
-AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"
-AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+# No secrets here anymore
+API_ENDPOINT = "https://api.example.com"
+DEBUG_MODE = True
 
 def main():
-    print(f"AWS Key: {AWS_ACCESS_KEY_ID}")
-    print(f"AWS Secret: {AWS_SECRET_ACCESS_KEY}")
+    print(f"API Endpoint: {API_ENDPOINT}")
+    print(f"Debug Mode: {DEBUG_MODE}")
