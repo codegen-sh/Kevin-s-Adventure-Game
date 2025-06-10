@@ -3,3 +3,6 @@
 
 # Test files with fake secrets (for demonstration)
 test_secrets\.py
+
+# Git objects and internal files
+\.git/.*
