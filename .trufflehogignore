@@ -1,0 +1,5 @@
+# TruffleHog ignore patterns for Kevin's Adventure Game
+# This file contains patterns for files to exclude from secret scanning
+
+# Test files with fake secrets (for demonstration)
+test_secrets\.py
