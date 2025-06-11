@@ -1,0 +1,6 @@
+# This should be IGNORED by .trufflehogignore (matches .*\.template$)
+# Template configuration file
+
+DATABASE_URL=postgresql://user:password123@localhost:5432/mydb
+SECRET_KEY=super-secret-key-for-template-only
+STRIPE_KEY=sk_test_template_key_1234567890abcdef

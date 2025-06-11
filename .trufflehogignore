@@ -1,0 +1,53 @@
+# =============================================================================
+# TruffleHog Ignore File Template
+# =============================================================================
+# This file contains regex patterns (one per line) for files that should be
+# excluded from TruffleHog secret scanning during pre-push hooks.
+#
+# IMPORTANT: Use this template carefully! Only ignore files that you are 
+# certain contain fake/test secrets, not real ones.
+#
+# Pattern format: Regular expressions that match against full file paths
+# =============================================================================
+
+# Test files with fake/mock secrets
+.*test_fake.*
+.*test.*fake.*
+.*mock.*secrets.*
+.*dummy.*credentials.*
+.*example.*keys.*
+
+# Documentation files with example secrets
+.*docs.*example.*
+.*README.*example.*
+.*\.md.*sample.*
+
+# Configuration templates (not actual config files!)
+.*\.template$
+.*\.sample$
+.*\.example$
+
+# Build artifacts that may contain false positives
+package-lock\.json
+yarn\.lock
+Pipfile\.lock
+composer\.lock
+.*\.min\.js$
+.*\.bundle\.js$
+
+# Test fixtures and data files
+.*fixtures.*
+.*test-data.*
+.*sample-data.*
+
+# Development environment files (be careful with these!)
+.*\.env\.example$
+.*\.env\.template$
+.*\.env\.sample$
+
+# =============================================================================
+# SECURITY WARNING: 
+# - Never ignore actual configuration files (.env, config.json, etc.)
+# - Never ignore files that might contain real secrets
+# - When in doubt, let TruffleHog scan the file
+# =============================================================================
