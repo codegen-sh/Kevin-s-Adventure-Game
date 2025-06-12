@@ -8,7 +8,7 @@ def wrap_text(text, width=80):
 def print_welcome_message():
     """Print a formatted welcome message for the game."""
     welcome_text = """
-Welcome to Kevin's Adventure Game!
+🌈 Welcome to Kevin's Adventure Game! 🌈
 
 Explore a world of mystery and danger as you navigate through
 forests, caves, villages, and mountains. Collect items, interact
@@ -16,7 +16,7 @@ with characters, and uncover the secrets of this magical realm.
 
 Type 'help' at any time to see available commands.
 
-Your journey begins now. Good luck, adventurer!
+🌈 Your journey begins now. Good luck, adventurer! 🌈
     """
     print(welcome_text.strip())
 
@@ -57,9 +57,10 @@ def print_event(event_text):
 def print_game_over():
     """Print a formatted game over message."""
     game_over_text = """
-    Game Over
+    🌈 Game Over 🌈
 
     Your adventure has come to an end. Thank you for playing!
+    🌈 Until next time, adventurer! 🌈
     """
     print_separator("=")
     print(game_over_text)
