@@ -1,0 +1,16 @@
+EXTREME OUT-OF-SYNC TEST FILE 🔥
+
+This file is created in the most chaotic state possible:
+- We're several commits behind main
+- We have unstaged changes
+- Git is complaining about conflicts
+- We're trying to commit Unicode: àáâãäåæç ∑∏∆∇∂∫√∞≠≤≥±×÷
+- And emoji: 🔧🐛🔍🚀🎉✨🌍🌈💻🎯🔥⚡
+- Mixed content: Hello 世界 🌍 café naïve résumé ∑∏∆
+
+Repeated Unicode patterns to stress test:
+àáâãäåæç àáâãäåæç àáâãäåæç àáâãäåæç àáâãäåæç
+∑∏∆∇∂∫√∞≠≤≥±×÷ ∑∏∆∇∂∫√∞≠≤≥±×÷ ∑∏∆∇∂∫√∞≠≤≥±×÷
+🔧🐛🔍🚀🎉✨🌍🌈 🔧🐛🔍🚀🎉✨🌍🌈 🔧🐛🔍🚀🎉✨🌍🌈
+
+If this doesn't trigger the garbling bug, nothing will! 💥
