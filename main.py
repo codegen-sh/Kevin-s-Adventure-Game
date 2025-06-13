@@ -7,6 +7,7 @@ from utils.text_formatting import print_help, print_welcome_message
 
 def main():
     print_welcome_message()
+    # Test comment for debugging garbled commit issue
 
     # Add load game option
     load_option = input("Do you want to load a saved game? (y/n): ").lower()
