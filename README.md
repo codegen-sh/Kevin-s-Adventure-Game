@@ -22,3 +22,7 @@ OS: Linux modal 4.4.0 x86_64 GNU/Linux
 
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
+
+## Debug Testing 🔧
+
+This repo is being used for testing the create_signed_commit tool to debug garbled commit issues. Test files include special characters, Unicode, and emoji to identify encoding problems: ∑∏∆∇∂∫√∞≠≤≥±×÷

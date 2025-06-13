@@ -1,0 +1,17 @@
+{
+  "test_name": "Garbled Commit Debug Test",
+  "version": "1.0.0",
+  "encoding": "utf-8",
+  "special_characters": {
+    "emoji": "🔧🐛🔍",
+    "accents": "café naïve résumé",
+    "symbols": "©®™€£¥§¶†‡•…‰‹›""''–—",
+    "math": "∑∏∆∇∂∫√∞≠≤≥±×÷"
+  },
+  "test_data": [
+    "Normal ASCII text",
+    "Text with àccénts",
+    "Emoji test 🚀🎉✨",
+    "Mixed: Hello 世界 🌍"
+  ]
+}
