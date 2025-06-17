@@ -1,4 +1,4 @@
-# 🌈 Kevin's Adventure Game
+# 🌈⚔️ Kevin's Adventure Game
 
 A comprehensive text-based adventure game featuring exploration, inventory management, weather systems, and mythical encounters.
 
@@ -48,7 +48,7 @@ Kevin-s-Adventure-Game/
 │   └── world.py         # World and location definitions
 ├── locations/           # Location-specific content
 ├── utils/               # Utility modules
-│   ├── random_events.py # Random event system
+��   ├── random_events.py # Random event system
 │   ├── save_load.py     # Save/load functionality
 │   └── text_formatting.py # Text display utilities
 └── README.md           # This file
