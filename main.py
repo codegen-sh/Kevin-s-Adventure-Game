@@ -39,7 +39,7 @@ def main():
 
         if action == "quit":
             save_game(player, world)
-            print("Thanks for playing! Your progress has been saved.")
+            print("🌈 Thanks for playing! Your progress has been saved. 🌈")
             break
         elif action == "help":
             print_help()
