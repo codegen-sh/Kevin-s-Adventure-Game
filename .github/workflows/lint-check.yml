@@ -1,37 +1,30 @@
-name: Linting Check
+name: Failing Check 1
 
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
   pull_request:
-    branches: [ main, develop ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  lint:
+  failing-job:
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 black isort
-    
-    - name: Run linting checks (DESIGNED TO FAIL)
-      run: |
-        echo "🔍 Running linting checks..."
-        echo "❌ CRITICAL: Code style violations detected!"
-        echo "   - Line too long in main.py:42"
-        echo "   - Missing docstring in game/player.py"
-        echo "   - Unused import in utils/save_load.py"
-        echo "   - Inconsistent indentation in locations/forest.py"
-        echo ""
-        echo "💥 Linting check failed with 4 violations"
-        exit 1
+    timeout-minutes: 5
 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Wait for 1 minute then fail
+      run: |
+        echo "Starting failing check..."
+        echo "This check will run for 1 minute and then fail"
+        
+        # Wait for 60 seconds (1 minute)
+        sleep 60
+        
+        echo "1 minute has passed, now failing..."
+        exit 1
