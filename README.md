@@ -1,6 +1,15 @@
 🌈🌈🌈🎮
 # Kevin's Adventure Game
 
+```
+    🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈
+   🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠
+  🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡
+ 🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢
+🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵🟣🔴🟠🟡🟢🔵
+    🌈 Welcome to Kevin's Magical Adventure! 🌈
+```
+
 This is a test repo for a text-based adventure game.
 
 Last updated: April 22, 2025
