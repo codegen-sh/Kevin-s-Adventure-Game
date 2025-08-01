@@ -1,0 +1,107 @@
+name: Sequential Passing Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  passing-check-1:
+    name: "Passing Check 1 - Database Connection"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Simulate database connection success
+        run: |
+          echo "✅ Attempting to connect to database..."
+          echo "Connection established successfully"
+          echo "Database server is responding normally"
+          echo "Database connection test passed"
+
+  passing-check-2:
+    name: "Passing Check 2 - Unit Tests"
+    runs-on: ubuntu-latest
+    needs: passing-check-1
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Run passing unit tests
+        run: |
+          echo "🧪 Running unit tests..."
+          echo "test_user_authentication.py::test_login ... PASSED"
+          echo "test_game_logic.py::test_player_movement ... PASSED"
+          echo "All tests completed successfully"
+          echo "Unit test suite passed"
+
+  passing-check-3:
+    name: "Passing Check 3 - Code Quality"
+    runs-on: ubuntu-latest
+    needs: passing-check-2
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Code quality check success
+        run: |
+          echo "📊 Running code quality analysis..."
+          echo "Code quality analysis completed successfully"
+          echo "✅ No unused variables detected"
+          echo "✅ All functions meet complexity requirements"
+          echo "✅ All classes have proper documentation"
+          echo "Code quality check passed"
+
+  passing-check-4:
+    name: "Passing Check 4 - Security Scan"
+    runs-on: ubuntu-latest
+    needs: passing-check-3
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Security vulnerability scan
+        run: |
+          echo "🔒 Running security vulnerability scan..."
+          echo "Security scan completed successfully"
+          echo "✅ No SQL injection vulnerabilities detected"
+          echo "✅ No hardcoded secrets found"
+          echo "✅ Secure random number generation verified"
+          echo "Security scan passed"
+
+  passing-check-5:
+    name: "Passing Check 5 - Performance Tests"
+    runs-on: ubuntu-latest
+    needs: passing-check-4
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Performance benchmark success
+        run: |
+          echo "⚡ Running performance benchmarks..."
+          echo "Response time: 0.8s (threshold: 1.0s) ✅"
+          echo "Memory usage: 180MB (threshold: 256MB) ✅"
+          echo "CPU usage: 45% (threshold: 70%) ✅"
+          echo "Performance benchmarks passed all requirements"
