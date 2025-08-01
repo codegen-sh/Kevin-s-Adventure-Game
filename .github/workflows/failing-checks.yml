@@ -1,0 +1,107 @@
+name: Sequential Failing Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  failing-check-1:
+    name: "Failing Check 1 - Database Connection"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Simulate database connection failure
+        run: |
+          echo "❌ Attempting to connect to database..."
+          echo "Connection timeout after 30 seconds"
+          echo "Error: Could not establish connection to database server"
+          exit 1
+
+  failing-check-2:
+    name: "Failing Check 2 - Unit Tests"
+    runs-on: ubuntu-latest
+    needs: failing-check-1
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Run failing unit tests
+        run: |
+          echo "🧪 Running unit tests..."
+          echo "test_user_authentication.py::test_login ... FAILED"
+          echo "test_game_logic.py::test_player_movement ... FAILED"
+          echo "AssertionError: Expected 'success' but got 'error'"
+          exit 1
+
+  failing-check-3:
+    name: "Failing Check 3 - Code Quality"
+    runs-on: ubuntu-latest
+    needs: failing-check-2
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Code quality check failure
+        run: |
+          echo "📊 Running code quality analysis..."
+          echo "Found 15 code quality issues:"
+          echo "- Unused variable 'temp_var' in main.py:42"
+          echo "- Function 'process_data' exceeds complexity threshold"
+          echo "- Missing docstring in class 'GameEngine'"
+          exit 1
+
+  failing-check-4:
+    name: "Failing Check 4 - Security Scan"
+    runs-on: ubuntu-latest
+    needs: failing-check-3
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Security vulnerability scan
+        run: |
+          echo "🔒 Running security vulnerability scan..."
+          echo "CRITICAL: SQL Injection vulnerability detected in user_input.py"
+          echo "HIGH: Hardcoded API key found in config.py"
+          echo "MEDIUM: Insecure random number generation in utils.py"
+          exit 1
+
+  failing-check-5:
+    name: "Failing Check 5 - Performance Tests"
+    runs-on: ubuntu-latest
+    needs: failing-check-4
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Wait 15 seconds
+        run: sleep 15
+      
+      - name: Performance benchmark failure
+        run: |
+          echo "⚡ Running performance benchmarks..."
+          echo "Response time: 2.5s (threshold: 1.0s) ❌"
+          echo "Memory usage: 512MB (threshold: 256MB) ❌"
+          echo "CPU usage: 85% (threshold: 70%) ❌"
+          echo "Performance benchmarks failed to meet requirements"
+          exit 1
