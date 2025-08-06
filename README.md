@@ -1,7 +1,9 @@
 🌈🌈🌈🎮
 # Kevin's Adventure Game
 
-This is a test repo for a text-based adventure game.
+![Kevin the Beet](kevin-the-beet.png)
+
+This is a test repo for a text-based adventure game featuring Kevin, our adorable pink and green beet mascot!
 
 Last updated: April 22, 2025
 OS: Linux modal 4.4.0 x86_64 GNU/Linux
