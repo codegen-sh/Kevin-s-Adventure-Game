@@ -66,3 +66,33 @@ def is_location_accessible(world, location):
 
 def get_all_locations(world):
     return list(world["locations"].keys())
+
+# Helper functions for the action system
+def get_current_location_info(world):
+    """Get detailed information about the current location."""
+    current_location = get_current_location(world)
+    location_data = world["locations"][current_location]
+    
+    info = f"You are in the {current_location}.\n"
+    info += f"{location_data['description']}\n"
+    
+    if location_data['items']:
+        info += f"Items here: {', '.join(location_data['items'])}\n"
+    
+    connections = location_data['connections']
+    if connections:
+        info += f"You can go to: {', '.join(connections)}"
+    
+    return info
+
+def get_current_location_connections(world):
+    """Get available connections from current location."""
+    current_location = get_current_location(world)
+    return world["locations"][current_location]["connections"]
+
+def move_to_location(world, location):
+    """Move to a new location if it's accessible."""
+    if location in get_current_location_connections(world):
+        world["current_location"] = location
+        return True
+    return False
