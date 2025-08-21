@@ -1,5 +1,5 @@
 🌈🌈🌈🎮
-# Kevin's Adventure Game
+# Kevin's Adventure Game 🌈
 
 ![Kevin the Beet](kevin-the-beet.png)
 
@@ -24,3 +24,4 @@ OS: Linux modal 4.4.0 x86_64 GNU/Linux
 
 1. Follow the prompts in the game.
 2. Type 'help' at any time to see available commands.
+
