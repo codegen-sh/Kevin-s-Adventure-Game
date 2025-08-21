@@ -1,207 +1,222 @@
-import random
-
-from game.player import (
-    add_item_to_inventory,
-    damage_player,
-    heal_player,
-    move_player,
-    remove_item_from_inventory,
-)
-from game.world import change_location, get_all_locations, get_available_locations
-from utils.random_events import generate_random_event
+"""
+Items module for Kevin's Adventure Game.
+Contains the Item class and related functions.
+"""
 
 
-def get_item_description(item):
-    item_descriptions = {
-        "map": "An old, worn map of the surrounding area. It might help you navigate.",
-        "bread": "A fresh loaf of bread. It looks delicious and nutritious.",
-        "stick": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
-        "berries": "A handful of colorful berries. They might be edible... or not.",
-        "torch": "A flaming torch that provides light in dark areas.",
-        "gemstone": "A sparkling gemstone. It looks valuable.",
-        "rope": "A coil of strong rope. Useful for climbing or tying things.",
-        "pickaxe": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
-        "mushrooms": "Some wild mushrooms. They could be edible or poisonous.",
-        "mountain_herbs": "Rare medicinal herbs found on the mountain. They might have healing properties.",
-        "ancient_coin": "An old coin with strange markings. It might be valuable to collectors.",
-        "hermit's_blessing": "A mystical blessing from the mountain hermit. It fills you with energy.",
-        "gold_coin": "A shiny gold coin. Standard currency in this realm.",
-        "silver_necklace": "A delicate silver necklace. It could fetch a good price.",
-        "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
-        "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
-        "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
-        "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
+class Item:
+    """
+    Item class representing a game item.
+    
+    Attributes:
+        name (str): The name of the item
+        description (str): A description of the item
+        portable (bool): Whether the item can be picked up
+        value (int): The gold value of the item
+        effects (dict): Dictionary of effects the item has when used
+    """
+    
+    def __init__(self, name, description, portable=True, value=0, effects=None):
+        """
+        Initialize a new Item instance.
+        
+        Args:
+            name (str): The name of the item
+            description (str): A description of the item
+            portable (bool, optional): Whether the item can be picked up. Defaults to True.
+            value (int, optional): The gold value of the item. Defaults to 0.
+            effects (dict, optional): Dictionary of effects the item has when used. Defaults to None.
+        """
+        self.name = name
+        self.description = description
+        self.portable = portable
+        self.value = value
+        self.effects = effects or {}
+    
+    def use(self, player, world):
+        """
+        Use the item.
+        
+        Args:
+            player: The player using the item
+            world: The game world
+            
+        Returns:
+            bool: True if the item was used successfully, False otherwise
+        """
+        if "heal" in self.effects:
+            from game.player import heal_player
+            heal_player(player, self.effects["heal"])
+            return True
+        elif "damage" in self.effects:
+            from game.player import damage_player
+            damage_player(player, self.effects["damage"])
+            return True
+        elif "message" in self.effects:
+            print(self.effects["message"])
+            return True
+        else:
+            print(f"You're not sure how to use the {self.name}.")
+            return False
+    
+    def examine(self):
+        """
+        Examine the item.
+        
+        Returns:
+            str: The item's description
+        """
+        return self.description
+    
+    def to_dict(self):
+        """
+        Convert the Item instance to a dictionary.
+        
+        Returns:
+            dict: A dictionary representation of the item
+        """
+        return {
+            "name": self.name,
+            "description": self.description,
+            "portable": self.portable,
+            "value": self.value,
+            "effects": self.effects.copy()
+        }
+    
+    @classmethod
+    def from_dict(cls, item_dict):
+        """
+        Create an Item instance from a dictionary.
+        
+        Args:
+            item_dict (dict): A dictionary representation of an item
+            
+        Returns:
+            Item: A new Item instance
+        """
+        return cls(
+            name=item_dict["name"],
+            description=item_dict["description"],
+            portable=item_dict["portable"],
+            value=item_dict["value"],
+            effects=item_dict["effects"].copy()
+        )
+
+
+# Create a catalog of standard items
+def get_item_catalog():
+    """
+    Get a catalog of standard items.
+    
+    Returns:
+        dict: A dictionary of Item instances
+    """
+    return {
+        "map": Item(
+            name="map",
+            description="A weathered map showing the village, forest, cave, and mountain.",
+            effects={"message": "You look at the map. It shows your current location and nearby areas."}
+        ),
+        "bread": Item(
+            name="bread",
+            description="A fresh loaf of bread. It smells delicious.",
+            value=5,
+            effects={"heal": 10, "message": "You eat the bread and feel better."}
+        ),
+        "stick": Item(
+            name="stick",
+            description="A sturdy wooden stick. Could be useful for various tasks.",
+            value=2
+        ),
+        "berries": Item(
+            name="berries",
+            description="Plump, juicy berries. They look safe to eat.",
+            value=3,
+            effects={"heal": 5, "message": "You eat the berries. They're sweet and refreshing."}
+        ),
+        "torch": Item(
+            name="torch",
+            description="A wooden torch that can be lit to provide light in dark areas.",
+            value=10,
+            effects={"message": "You light the torch. It illuminates the area around you."}
+        ),
+        "gemstone": Item(
+            name="gemstone",
+            description="A sparkling gemstone that catches the light beautifully.",
+            value=30
+        ),
+        "rope": Item(
+            name="rope",
+            description="A coil of strong rope. Useful for climbing or tying things.",
+            value=15
+        ),
+        "pickaxe": Item(
+            name="pickaxe",
+            description="A sturdy pickaxe for mining or breaking rocks.",
+            value=20
+        ),
+        "sword": Item(
+            name="sword",
+            description="A sharp, well-crafted sword. Useful for protection.",
+            value=50
+        ),
+        "mushrooms": Item(
+            name="mushrooms",
+            description="Edible mushrooms that can restore some health.",
+            value=5,
+            effects={"heal": 8, "message": "You eat the mushrooms. They have an earthy flavor."}
+        ),
+        "mysterious_package": Item(
+            name="mysterious_package",
+            description="A sealed package addressed to the mountain hermit.",
+            value=0,
+            effects={"message": "The package is sealed. You should deliver it to the mountain hermit."}
+        ),
+        "unicorn_hair": Item(
+            name="unicorn_hair",
+            description="A shimmering strand of unicorn hair. It seems magical.",
+            value=100
+        ),
+        "dragon_scale": Item(
+            name="dragon_scale",
+            description="A tough, iridescent dragon scale. It's warm to the touch.",
+            value=200
+        ),
+        "gold_nugget": Item(
+            name="gold_nugget",
+            description="A small nugget of pure gold.",
+            value=20
+        ),
+        "crystal": Item(
+            name="crystal",
+            description="A beautiful crystal that seems to glow with an inner light.",
+            value=25
+        ),
+        "small_gemstone": Item(
+            name="small_gemstone",
+            description="A small but valuable gemstone.",
+            value=15
+        ),
+        "ancient_amulet": Item(
+            name="ancient_amulet",
+            description="An ancient amulet with strange inscriptions. It feels magical.",
+            value=150,
+            effects={"message": "The amulet glows faintly when you hold it."}
+        )
     }
-    return item_descriptions.get(item, "A mysterious item.")
 
-def use_item(player, item, world):
-    if item not in player["inventory"]:
-        print(f"You don't have {item} in your inventory.")
-        return False
 
-    if item == "map":
-        print("You consult the map. It shows the following locations you can go to:")
-        available_locations = get_available_locations(world)
-        for location in available_locations:
-            print(f"- {location}")
-        return True
-    elif item == "bread":
-        print("You eat the bread. It's delicious and restores some health.")
-        heal_player(player, 20)
-        remove_item_from_inventory(player, item)
-        return True
-    elif item == "stick":
-        print("You wave the stick around. It makes a satisfying swoosh sound.")
-        if world["current_location"] == "Forest":
-            print("A nearby bird is startled and drops a shiny object!")
-            add_item_to_inventory(player, "gold_coin")
-        return True
-    elif item == "berries":
-        print("You eat the berries. They're sweet and juicy.")
-        if generate_random_event(events=[("heal", 70), ("poison", 30)]) == "heal":
-            print("You feel refreshed and gain some health.")
-            heal_player(player, 10)
-        else:
-            print("Uh oh, those weren't safe to eat. You lose some health.")
-            damage_player(player, 5)
-        remove_item_from_inventory(player, item)
-        return True
-    elif item == "torch":
-        current_location = world["current_location"]
-        if current_location == "Cave":
-            print("You light the torch, illuminating the dark cave around you.")
-            world["locations"]["Cave"]["description"] += " The cave is now well-lit by your torch."
-            return True
-        else:
-            print("You light the torch. It provides warmth and light.")
-            return True
-    elif item == "gemstone":
-        print("You examine the gemstone closely. It glimmers with an otherworldly light.")
-        if world["current_location"] == "Village":
-            print("A merchant notices your gemstone and offers to buy it for 50 gold!")
-            choice = input("Do you want to sell the gemstone? (y/n): ").lower()
-            if choice == 'y':
-                player["gold"] += 50
-                remove_item_from_inventory(player, item)
-                print("You sold the gemstone for 50 gold.")
-            else:
-                print("You decide to keep the gemstone.")
-        return True
-    elif item == "rope":
-        if world["current_location"] == "Mountain":
-            print("You use the rope to safely navigate a treacherous part of the mountain.")
-            heal_player(player, 5)
-            print("Your climbing technique improves, and you feel more confident.")
-        else:
-            print("You coil and uncoil the rope. It might be useful in the right situation.")
-        return True
-    elif item == "pickaxe":
-        print("You swing the pickaxe, but there's nothing here to mine.")
-        return True
-    elif item == "mushrooms":
-        print("You decide to eat the mushrooms.")
-        if generate_random_event(events=[("heal", 50), ("poison", 50)]) == "heal":
-            print("The mushrooms were edible and restore some health.")
-            heal_player(player, 20)
-        else:
-            print("The mushrooms were poisonous! You feel sick.")
-            damage_player(player, 10)
-        remove_item_from_inventory(player, item)
-        return True
-    elif item == "mountain_herbs":
-        print("You brew a tea with the mountain herbs and drink it.")
-        heal_player(player, 30)
-        print("You feel invigorated and ready for more adventures!")
-        remove_item_from_inventory(player, item)
-        return True
-    elif item == "ancient_coin":
-        print("You flip the ancient coin. As it spins in the air, you feel a strange energy...")
-        if generate_random_event(events=[("teleport", 50), ("reveal_secret", 50)]) == "teleport":
-            new_location = random.choice(get_all_locations(world))
-            change_location(world, new_location)
-            move_player(player, new_location)
-            print(f"The coin vanishes and you find yourself teleported to {new_location}!")
-        else:
-            print("The coin glows and reveals a secret about your current location!")
-            # You might want to add some location-specific secrets here
-        remove_item_from_inventory(player, item)
-        return True
-    elif item == "hermit's_blessing":
-        print("You invoke the hermit's blessing. A warm, comforting light envelops you.")
-        heal_player(player, 50)
-        print("You feel completely refreshed and your mind is clear.")
-        remove_item_from_inventory(player, item)
-        return True
-    elif item == "sword":
-        print("You swing the sword, practicing your combat moves.")
-        if world["current_location"] == "Forest":
-            print("Your sword slices through some thick vines, revealing a hidden path!")
-            # update_world_state(world, "reveal_hidden_path")
-        return True
-    elif item == "gold_coin":
-        print("You flip the gold coin. It catches the light, shimmering brilliantly.")
-        if world["current_location"] == "Village":
-            print("A street vendor notices your coin and offers you a mysterious potion in exchange.")
-            choice = input("Do you want to trade the gold coin for the potion? (y/n): ").lower()
-            if choice == 'y':
-                remove_item_from_inventory(player, item)
-                add_item_to_inventory(player, "mysterious_potion")
-                print("You traded the gold coin for a mysterious potion.")
-            else:
-                print("You decide to keep the gold coin.")
-        return True
-    elif item == "silver_necklace":
-        print("You hold up the silver necklace, admiring its craftsmanship.")
-        if world["current_location"] == "Mountain":
-            print("The necklace begins to glow, revealing hidden runes on nearby rocks!")
-            print("You discover a secret path leading to a hidden cave.")
-            # update_world_state(world, "reveal_hidden_cave")
-        else:
-            print("The necklace sparkles beautifully, but nothing else happens.")
-        return True
-    elif item == "ancient_artifact":
-        print("You examine the ancient artifact closely, turning it over in your hands.")
-        if generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "wisdom":
-            print("Suddenly, knowledge of the ancient world floods your mind!")
-            print("You gain insight into the history of this land.")
-            # update_player_knowledge(player, "ancient_history")
-        elif generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "curse":
-            print("A dark energy emanates from the artifact, making you feel weak.")
-            damage_player(player, 10)
-            print("You quickly put the artifact away, feeling drained.")
-        else:
-            print("Despite its age, the artifact remains inert and mysterious.")
-        return True
-    else:
-        print(f"You're not sure how to use the {item}.")
-        return False
+# Get an item by name
+def get_item(item_name):
+    """
+    Get an item by name.
+    
+    Args:
+        item_name (str): The name of the item
+        
+    Returns:
+        Item: The item instance, or None if not found
+    """
+    catalog = get_item_catalog()
+    return catalog.get(item_name.lower())
 
-def get_available_items(world, location):
-    return world["locations"][location]["items"]
-
-def add_item_to_world(world, location, item):
-    if item not in world["locations"][location]["items"]:
-        world["locations"][location]["items"].append(item)
-        print(f"A {item} has been added to {location}.")
-    else:
-        print(f"There's already a {item} in {location}.")
-
-def remove_item_from_world(world, location, item):
-    if item in world["locations"][location]["items"]:
-        world["locations"][location]["items"].remove(item)
-        return True
-    return False
-
-def transfer_item(player, world, item, from_inventory_to_world=True):
-    current_location = world["current_location"]
-
-    if from_inventory_to_world:
-        if remove_item_from_inventory(player, item):
-            add_item_to_world(world, current_location, item)
-            return True
-    else:
-        if remove_item_from_world(world, current_location, item):
-            add_item_to_inventory(player, item)
-            return True
-
-    return False
