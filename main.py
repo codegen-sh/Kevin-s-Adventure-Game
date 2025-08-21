@@ -16,10 +16,15 @@ def main():
             print("Available save files:")
             for i, file in enumerate(save_files, 1):
                 print(f"{i}. {file}")
-            choice = int(input("Enter the number of the save file to load: "))
-            player, world = load_game(save_files[choice - 1])
-            if player is None or world is None:
-                print("Failed to load game. Starting a new game.")
+            try:
+                choice = int(input("Enter the number of the save file to load: "))
+                player, world = load_game(save_files[choice - 1])
+                if player is None or world is None:
+                    print("Failed to load game. Starting a new game.")
+                    player = create_player("Kevin")
+                    world = initialize_world()
+            except (ValueError, IndexError):
+                print("Invalid choice. Starting a new game.")
                 player = create_player("Kevin")
                 world = initialize_world()
         else:
@@ -30,21 +35,27 @@ def main():
         player = create_player("Kevin")
         world = initialize_world()
 
+    # Main game loop
     while True:
         current_location = get_current_location(world)
         print(f"\nYou are in the {current_location}.")
         print(get_player_status(player))
 
-        action = input("What would you like to do? ").lower()
+        action = input("What would you like to do? ").strip()
+        
+        if not action:
+            print("Please enter a command. Type 'help' for available commands.")
+            continue
 
-        if action == "quit":
-            save_game(player, world)
-            print("Thanks for playing! Your progress has been saved.")
+        # Use the new action system
+        result = perform_action(player, world, action)
+        
+        if result.message:
+            print(result.message)
+        
+        if not result.should_continue:
             break
-        elif action == "help":
-            print_help()
-        else:
-            perform_action(player, world, action)
 
 if __name__ == "__main__":
     main()
+
