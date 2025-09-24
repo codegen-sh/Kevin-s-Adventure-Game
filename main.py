@@ -1,3 +1,4 @@
+🌈
 from game.actions import perform_action
 from game.player import create_player, get_player_status
 from game.world import get_current_location, initialize_world
