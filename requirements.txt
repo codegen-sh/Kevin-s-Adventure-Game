@@ -1,0 +1,20 @@
+# Kevin's Adventure Game Requirements
+# This game is designed to run with Python standard library only
+# No external dependencies required!
+
+# Python version requirement
+# python>=3.7
+
+# Optional development dependencies (not required for gameplay)
+# mypy>=0.910  # For type checking during development
+# black>=21.0  # For code formatting during development
+# pytest>=6.0  # For running tests during development
+
+# The game runs entirely on Python's standard library:
+# - typing (for type hints)
+# - json (for save/load functionality)
+# - os (for file operations)
+# - random (for random events)
+# - re (for input validation)
+# - abc (for abstract base classes)
+# - datetime (for timestamps in save files)
