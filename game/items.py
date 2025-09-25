@@ -34,7 +34,7 @@ def get_item_description(item):
     }
     return item_descriptions.get(item, "A mysterious item.")
 
-def use_item(player, item, world):
+def use_item(player, world, item):
     if item not in player["inventory"]:
         print(f"You don't have {item} in your inventory.")
         return False
@@ -205,3 +205,17 @@ def transfer_item(player, world, item, from_inventory_to_world=True):
             return True
 
     return False
+
+
+def get_location_items(world, location):
+    """
+    Get list of items available at a specific location.
+    
+    Args:
+        world: World state dictionary
+        location: Location name
+        
+    Returns:
+        List of items at the location
+    """
+    return world["locations"].get(location, {}).get("items", [])
