@@ -1,5 +1,5 @@
-🌈🌈🌈🎮
-# Kevin's Adventure Game
+🌈🌈🌈🎮🌈🌈🌈
+# Kevin's Adventure Game 🌈
 
 ![Kevin the Beet](kevin-the-beet.png)
 
