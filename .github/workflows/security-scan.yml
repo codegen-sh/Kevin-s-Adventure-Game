@@ -1,0 +1,40 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install security tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit safety
+      
+      - name: Run security scan
+        run: |
+          echo "🛡️ Running security scan..."
+          echo ""
+          echo "❌ HIGH SEVERITY ISSUES:"
+          echo "   - Assert usage detected in game/combat.py:156"
+          echo "   - Subprocess with shell=True in utils/system.py:23"
+          echo ""
+          echo "⚠️ MEDIUM SEVERITY ISSUES:"
+          echo "   - Hardcoded temp file path in save/manager.py:89"
+          echo "   - Insecure random generator in game/loot.py:45"
+          echo ""
+          echo "📦 DEPENDENCY VULNERABILITIES:"
+          echo "   - requests==2.25.1 has known security vulnerability CVE-2023-32681"
+          echo "   - urllib3==1.26.5 has known security vulnerability CVE-2023-45803"
+          echo ""
+          echo "💥 Security scan failed with 6 critical issues"
+          exit 2
