@@ -1,0 +1,20 @@
+{
+  "hot_reload": false,
+  "enabled_plugins": [],
+  "disabled_plugins": [],
+  "plugin_settings": {
+    "WeatherMechanic": {
+      "enabled": true,
+      "weather_change_frequency": "normal"
+    },
+    "Desert": {
+      "enabled": true,
+      "difficulty": "normal"
+    },
+    "InspectAction": {
+      "enabled": true,
+      "detailed_descriptions": true
+    }
+  }
+}
+

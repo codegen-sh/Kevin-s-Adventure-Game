@@ -1,0 +1,3 @@
+# Requirements for Kevin's Adventure Game Plugin System
+watchdog>=2.1.0  # For hot-reloading plugins
+
