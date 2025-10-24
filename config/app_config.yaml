@@ -1,0 +1,85 @@
+# YAML configuration file with fake secrets for TruffleHog testing
+# WARNING: These are FAKE secrets for testing purposes only!
+
+app:
+  name: "Kevin's Adventure Game"
+  version: "1.0.0"
+  debug: true
+
+database:
+  host: localhost
+  port: 5432
+  name: kevin_adventure
+  username: kevin_user
+  password: "super_secret_db_password_123"
+  ssl: false
+
+redis:
+  host: localhost
+  port: 6379
+  password: "redis_secret_password"
+  db: 0
+
+api_keys:
+  openai: "sk-proj-1234567890abcdef1234567890abcdef1234567890abcdef"
+  stripe_secret: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+  stripe_publishable: "pk_test_TYooMQauvdEDq54NiTphI7jx"
+  sendgrid: "SG.1234567890abcdef.1234567890abcdef1234567890abcdef1234567890abcdef"
+  github_token: "ghp_1234567890abcdef1234567890abcdef12345678"
+
+aws:
+  access_key_id: "AKIAIOSFODNN7EXAMPLE"
+  secret_access_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+  region: "us-west-2"
+  s3_bucket: "kevin-adventure-assets"
+
+oauth:
+  google:
+    client_id: "123456789012-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com"
+    client_secret: "GOCSPX-1234567890abcdef1234567890abcdef"
+  facebook:
+    app_id: "1234567890123456"
+    app_secret: "1234567890abcdef1234567890abcdef"
+  github:
+    client_id: "Iv1.1234567890abcdef"
+    client_secret: "1234567890abcdef1234567890abcdef12345678"
+
+jwt:
+  secret: "my-super-secret-jwt-signing-key"
+  refresh_secret: "my-refresh-token-secret-key"
+  expiration: 3600
+
+encryption:
+  key: "1234567890abcdef1234567890abcdef"
+  algorithm: "AES-256-CBC"
+  salt: "randomsaltvalue"
+
+webhooks:
+  stripe_endpoint_secret: "whsec_1234567890abcdef1234567890abcdef"
+  github_secret: "1234567890abcdef1234567890abcdef"
+  discord_webhook: "https://discord.com/api/webhooks/123456789012345678/1234567890abcdef1234567890abcdef1234567890abcdef"
+
+email:
+  smtp_host: "smtp.gmail.com"
+  smtp_port: 587
+  smtp_user: "kevin@example.com"
+  smtp_password: "email_app_password_123"
+
+third_party:
+  twilio:
+    account_sid: "AC1234567890abcdef1234567890abcdef"
+    auth_token: "1234567890abcdef1234567890abcdef"
+  slack:
+    bot_token: "xoxb-1234567890-1234567890-1234567890abcdef"
+    webhook_url: "https://hooks.slack.com/services/T00000000/B00000000/1234567890abcdef1234567890"
+  discord:
+    bot_token: "ODcyNzM0NjM4NzI2MzQ4ODA2.YQ4KTw.1234567890abcdef1234567890abcdef"
+
+# Private key (shortened for testing)
+private_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEpAIBAAKCAQEA1234567890abcdef1234567890abcdef1234567890abcdef
+  1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+  1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+  -----END RSA PRIVATE KEY-----
+

@@ -1,0 +1,21 @@
+# TruffleHog configuration file
+# This configures TruffleHog to exclude certain paths from scanning
+
+sources:
+  - type: filesystem
+    name: filesystem-scan
+    paths:
+      - "."
+    excludePathsFile: ".trufflehogignore"
+    
+# Optional: Configure verification settings
+verify: false
+
+# Optional: Configure specific detectors to include/exclude
+# excludeDetectors:
+#   - stripe
+#   - aws
+
+# Optional: Configure log level
+logLevel: info
+
