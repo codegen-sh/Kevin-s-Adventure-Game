@@ -5,7 +5,9 @@ from utils.random_events import generate_random_event
 
 
 def visit_village(world, player):
-    print("You enter the bustling village. Villagers go about their daily lives around you.")
+    print(
+        "You enter the bustling village. Villagers go about their daily lives around you."
+    )
 
     while True:
         print("\nWhat would you like to do in the village?")
@@ -34,39 +36,47 @@ def visit_village(world, player):
         else:
             print("Invalid choice. Please try again.")
 
+
 def visit_shop(world, player):
     print("You enter the village shop. The shopkeeper greets you warmly.")
-    print("Available items: bread (5 gold), torch (10 gold), rope (15 gold), sword (50 gold)")
+    print(
+        "Available items: bread (5 gold), torch (10 gold), rope (15 gold), sword (50 gold)"
+    )
 
     while True:
         choice = input("What would you like to buy? (or 'exit' to leave): ").lower()
-        if choice == 'exit':
+        if choice == "exit":
             break
-        elif choice == 'bread' and player.get("gold", 0) >= 5:
+        elif choice == "bread" and player.get("gold", 0) >= 5:
             player["gold"] -= 5
             add_item_to_inventory(player, "bread")
             print("You bought a loaf of bread.")
-        elif choice == 'torch' and player.get("gold", 0) >= 10:
+        elif choice == "torch" and player.get("gold", 0) >= 10:
             player["gold"] -= 10
             add_item_to_inventory(player, "torch")
             print("You bought a torch.")
-        elif choice == 'rope' and player.get("gold", 0) >= 15:
+        elif choice == "rope" and player.get("gold", 0) >= 15:
             player["gold"] -= 15
             add_item_to_inventory(player, "rope")
             print("You bought a coil of rope.")
-        elif choice == 'sword' and player.get("gold", 0) >= 50:
+        elif choice == "sword" and player.get("gold", 0) >= 50:
             player["gold"] -= 50
             add_item_to_inventory(player, "sword")
             print("You bought a sturdy sword.")
         else:
             print("Invalid choice or not enough gold.")
 
+
 def talk_to_villagers(world, player):
     print("You approach a group of villagers to chat.")
-    event = generate_random_event(events = [("hear_rumor", 40), ("receive_advice", 30), (None, 30)])
+    event = generate_random_event(
+        events=[("hear_rumor", 40), ("receive_advice", 30), (None, 30)]
+    )
 
     if event == "hear_rumor":
-        print("You overhear an interesting rumor about treasure hidden in the nearby cave.")
+        print(
+            "You overhear an interesting rumor about treasure hidden in the nearby cave."
+        )
     elif event == "receive_advice":
         print("An old villager gives you advice about surviving in the forest.")
         heal_player(player, 10)
@@ -74,11 +84,14 @@ def talk_to_villagers(world, player):
     else:
         print("You have a pleasant but uneventful conversation with the villagers.")
 
+
 def visit_inn(world, player):
     print("You enter the cozy village inn.")
     if player.get("gold", 0) >= 10:
-        choice = input("Would you like to rest for the night? (10 gold) [y/n]: ").lower()
-        if choice == 'y':
+        choice = input(
+            "Would you like to rest for the night? (10 gold) [y/n]: "
+        ).lower()
+        if choice == "y":
             player["gold"] -= 10
             heal_player(player, 50)
             print("You have a good night's rest and feel rejuvenated.")
@@ -87,10 +100,16 @@ def visit_inn(world, player):
     else:
         print("You don't have enough gold to stay the night.")
 
+
 def perform_quest(world, player):
     print("You check the village quest board.")
-    if generate_random_event(events = [("receive_quest", 30), (None, 70)]) == "receive_quest":
-        print("You accept a quest to deliver a package to a hermit living on the mountain.")
+    if (
+        generate_random_event(events=[("receive_quest", 30), (None, 70)])
+        == "receive_quest"
+    ):
+        print(
+            "You accept a quest to deliver a package to a hermit living on the mountain."
+        )
         add_item_to_inventory(player, "mysterious_package")
         print("Complete this quest by reaching the mountain peak.")
     else:
