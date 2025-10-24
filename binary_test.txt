@@ -1,0 +1,38 @@
+BINARY-LIKE TEST FILE FOR BASE64 DEBUGGING
+
+This file contains content that might break base64 encoding:
+
+Raw control characters:
+Binary-like: ÿþýüûúùø÷öõôóòñðïîíìëêéèçæåäãâáà
+High ASCII: €‚ƒ„…†‡ˆ‰Š‹ŒŽ''""•–—˜™š›œžŸ
+Mixed line endings:
+Unix: 
+Windows: 
+Mac: 
+
+Null bytes and control chars (simulated):
+[NULL][SOH][STX][ETX][EOT][ENQ][ACK][BEL][BS][HT][LF][VT][FF][CR][SO][SI]
+
+Base64 problematic chars:
++/=+/=+/=+/=+/=+/=+/=+/=+/=+/=+/=+/=+/=+/=+/=+/=
+
+JSON-breaking content:
+{"test": "value with \"nested quotes\" and 
+newlines and \ttabs"}
+
+Shell-breaking content:
+$HOME `echo dangerous` $(rm -rf /) && echo "pwned"
+
+Regex nightmare:
+.*+?^${}()|[]\.*+?^${}()|[]\.*+?^${}()|[]\
+
+Backslash hell:
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+Mixed encoding issues:
+UTF-8: café naïve résumé
+Latin-1: àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+Windows-1252: ""''–—…†‡•‰‹›ŒŽ
+
+This should stress test the base64 encoding process!
+
