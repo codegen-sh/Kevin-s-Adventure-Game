@@ -2,7 +2,7 @@ from game.mythical import summon_mythical_creature
 from game.player import add_item_to_inventory, heal_player
 from game.state import update_world_state
 from utils.random_events import generate_random_event
-
+from config import config
 
 def visit_village(world, player):
     print("You enter the bustling village. Villagers go about their daily lives around you.")
@@ -35,31 +35,62 @@ def visit_village(world, player):
             print("Invalid choice. Please try again.")
 
 def visit_shop(world, player):
-    print("You enter the village shop. The shopkeeper greets you warmly.")
-    print("Available items: bread (5 gold), torch (10 gold), rope (15 gold), sword (50 gold)")
+    """Visit the village shop using configuration data."""
+    try:
+        shop_config = config.get_shop_config("village_shop")
+        print(shop_config["shopkeeper_greeting"])
+        
+        # Display available items
+        print("Available items:")
+        for item_name, item_info in shop_config["inventory"].items():
+            price = item_info["price"]
+            currency = shop_config["currency"]
+            print(f"{item_name} ({price} {currency})")
+        
+        while True:
+            choice = input("What would you like to buy? (or 'exit' to leave): ").lower()
+            if choice == 'exit':
+                break
+            elif choice in shop_config["inventory"]:
+                item_info = shop_config["inventory"][choice]
+                price = item_info["price"]
+                currency = shop_config["currency"]
+                
+                if player.get(currency, 0) >= price:
+                    player[currency] -= price
+                    add_item_to_inventory(player, choice)
+                    print(f"You bought a {choice}.")
+                else:
+                    print(f"Invalid choice or not enough {currency}.")
+            else:
+                print(f"Invalid choice or not enough {shop_config['currency']}.")
+    except Exception as e:
+        # Fallback to hardcoded shop for backward compatibility
+        print("You enter the village shop. The shopkeeper greets you warmly.")
+        print("Available items: bread (5 gold), torch (10 gold), rope (15 gold), sword (50 gold)")
 
-    while True:
-        choice = input("What would you like to buy? (or 'exit' to leave): ").lower()
-        if choice == 'exit':
-            break
-        elif choice == 'bread' and player.get("gold", 0) >= 5:
-            player["gold"] -= 5
-            add_item_to_inventory(player, "bread")
-            print("You bought a loaf of bread.")
-        elif choice == 'torch' and player.get("gold", 0) >= 10:
-            player["gold"] -= 10
-            add_item_to_inventory(player, "torch")
-            print("You bought a torch.")
-        elif choice == 'rope' and player.get("gold", 0) >= 15:
-            player["gold"] -= 15
-            add_item_to_inventory(player, "rope")
-            print("You bought a coil of rope.")
-        elif choice == 'sword' and player.get("gold", 0) >= 50:
-            player["gold"] -= 50
-            add_item_to_inventory(player, "sword")
-            print("You bought a sturdy sword.")
-        else:
-            print("Invalid choice or not enough gold.")
+        while True:
+            choice = input("What would you like to buy? (or 'exit' to leave): ").lower()
+            if choice == 'exit':
+                break
+            elif choice == 'bread' and player.get("gold", 0) >= 5:
+                player["gold"] -= 5
+                add_item_to_inventory(player, "bread")
+                print("You bought a loaf of bread.")
+            elif choice == 'torch' and player.get("gold", 0) >= 10:
+                player["gold"] -= 10
+                add_item_to_inventory(player, "torch")
+                print("You bought a torch.")
+            elif choice == 'rope' and player.get("gold", 0) >= 15:
+                player["gold"] -= 15
+                add_item_to_inventory(player, "rope")
+                print("You bought a coil of rope.")
+            elif choice == 'sword' and player.get("gold", 0) >= 50:
+                player["gold"] -= 50
+                add_item_to_inventory(player, "sword")
+                print("You bought a sturdy sword.")
+            else:
+                print("Invalid choice or not enough gold.")
 
 def talk_to_villagers(world, player):
     print("You approach a group of villagers to chat.")

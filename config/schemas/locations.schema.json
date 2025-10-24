@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Locations Configuration Schema",
+  "description": "Schema for validating locations configuration files",
+  "type": "object",
+  "properties": {
+    "world": {
+      "type": "object",
+      "properties": {
+        "starting_location": {
+          "type": "string",
+          "description": "The location where players start the game"
+        },
+        "locations": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the location"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the location"
+                },
+                "connections": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "List of connected locations"
+                },
+                "starting_items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Items available at this location initially"
+                },
+                "location_type": {
+                  "type": "string",
+                  "enum": ["settlement", "wilderness", "dungeon"],
+                  "description": "Type of location"
+                },
+                "safe_zone": {
+                  "type": "boolean",
+                  "description": "Whether this location is safe from random encounters"
+                },
+                "requires_light": {
+                  "type": "boolean",
+                  "description": "Whether this location requires a light source"
+                },
+                "dangerous": {
+                  "type": "boolean",
+                  "description": "Whether this location has inherent dangers"
+                }
+              },
+              "required": ["name", "description", "connections", "starting_items", "location_type", "safe_zone"],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["starting_location", "locations"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["world"],
+  "additionalProperties": false
+}
+

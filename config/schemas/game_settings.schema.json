@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Game Settings Configuration Schema",
+  "description": "Schema for validating game settings configuration files",
+  "type": "object",
+  "properties": {
+    "player": {
+      "type": "object",
+      "properties": {
+        "starting_health": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Player's starting health points"
+        },
+        "max_health": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum health points a player can have"
+        },
+        "starting_gold": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Player's starting gold amount"
+        },
+        "starting_location": {
+          "type": "string",
+          "description": "Location where the player starts"
+        },
+        "starting_inventory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Items the player starts with"
+        }
+      },
+      "required": ["starting_health", "max_health", "starting_gold", "starting_location", "starting_inventory"],
+      "additionalProperties": false
+    },
+    "game": {
+      "type": "object",
+      "properties": {
+        "save_file_extension": {
+          "type": "string",
+          "description": "File extension for save files"
+        },
+        "max_inventory_size": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "Maximum number of items in inventory, null for unlimited"
+        },
+        "auto_save": {
+          "type": "boolean",
+          "description": "Whether to automatically save the game"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["easy", "normal", "hard"],
+          "description": "Game difficulty level"
+        }
+      },
+      "required": ["save_file_extension", "max_inventory_size", "auto_save", "difficulty"],
+      "additionalProperties": false
+    },
+    "combat": {
+      "type": "object",
+      "properties": {
+        "base_damage_range": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "Base damage range [min, max]"
+        },
+        "healing_cap": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum health that can be healed to"
+        }
+      },
+      "required": ["base_damage_range", "healing_cap"],
+      "additionalProperties": false
+    },
+    "economy": {
+      "type": "object",
+      "properties": {
+        "currency_name": {
+          "type": "string",
+          "description": "Name of the game currency"
+        },
+        "starting_currency": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Starting amount of currency"
+        }
+      },
+      "required": ["currency_name", "starting_currency"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["player", "game", "combat", "economy"],
+  "additionalProperties": false
+}
+

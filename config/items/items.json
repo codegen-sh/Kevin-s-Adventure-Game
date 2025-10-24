@@ -1,0 +1,205 @@
+{
+  "items": {
+    "map": {
+      "name": "Map",
+      "description": "An old, worn map of the surrounding area. It might help you navigate.",
+      "type": "tool",
+      "consumable": false,
+      "effects": {
+        "action": "reveal_locations",
+        "message": "You study the map and get a better understanding of the area."
+      }
+    },
+    "bread": {
+      "name": "Bread",
+      "description": "A fresh loaf of bread. It looks delicious and nutritious.",
+      "type": "consumable",
+      "consumable": true,
+      "effects": {
+        "heal": 20,
+        "message": "You eat the bread and feel refreshed."
+      }
+    },
+    "stick": {
+      "name": "Stick",
+      "description": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
+      "type": "tool",
+      "consumable": false,
+      "effects": {
+        "action": "basic_weapon",
+        "damage_bonus": 2,
+        "message": "You grip the stick firmly, ready to defend yourself."
+      }
+    },
+    "berries": {
+      "name": "Berries",
+      "description": "A handful of colorful berries. They might be edible... or not.",
+      "type": "consumable",
+      "consumable": true,
+      "effects": {
+        "heal": 10,
+        "random_effect": true,
+        "message": "You eat the berries. They taste sweet!"
+      }
+    },
+    "torch": {
+      "name": "Torch",
+      "description": "A flaming torch that provides light in dark areas.",
+      "type": "tool",
+      "consumable": false,
+      "effects": {
+        "action": "illuminate",
+        "message": "You light the torch, casting a warm glow around you."
+      }
+    },
+    "gemstone": {
+      "name": "Gemstone",
+      "description": "A sparkling gemstone. It looks valuable.",
+      "type": "valuable",
+      "consumable": false,
+      "effects": {
+        "value": 50,
+        "message": "The gemstone catches the light beautifully."
+      }
+    },
+    "rope": {
+      "name": "Rope",
+      "description": "A coil of strong rope. Useful for climbing or tying things.",
+      "type": "tool",
+      "consumable": false,
+      "effects": {
+        "action": "climbing_aid",
+        "message": "You secure the rope, making climbing much safer."
+      }
+    },
+    "pickaxe": {
+      "name": "Pickaxe",
+      "description": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
+      "type": "tool",
+      "consumable": false,
+      "effects": {
+        "action": "mining",
+        "message": "You swing the pickaxe with determination."
+      }
+    },
+    "mushrooms": {
+      "name": "Mushrooms",
+      "description": "Some wild mushrooms. They could be edible or poisonous.",
+      "type": "consumable",
+      "consumable": true,
+      "effects": {
+        "heal": 15,
+        "random_effect": true,
+        "poison_chance": 20,
+        "message": "You eat the mushrooms, hoping for the best."
+      }
+    },
+    "mountain_herbs": {
+      "name": "Mountain Herbs",
+      "description": "Rare medicinal herbs found on the mountain. They might have healing properties.",
+      "type": "consumable",
+      "consumable": true,
+      "effects": {
+        "heal": 30,
+        "message": "You consume the herbs and feel a surge of vitality."
+      }
+    },
+    "ancient_coin": {
+      "name": "Ancient Coin",
+      "description": "An old coin with strange markings. It might be valuable to collectors.",
+      "type": "valuable",
+      "consumable": false,
+      "effects": {
+        "value": 25,
+        "message": "The ancient coin feels heavy with history."
+      }
+    },
+    "hermit's_blessing": {
+      "name": "Hermit's Blessing",
+      "description": "A mystical blessing from the mountain hermit. It fills you with energy.",
+      "type": "magical",
+      "consumable": true,
+      "effects": {
+        "heal": 50,
+        "max_health_bonus": 10,
+        "message": "The hermit's blessing fills you with renewed strength."
+      }
+    },
+    "gold_coin": {
+      "name": "Gold Coin",
+      "description": "A shiny gold coin. Standard currency in this realm.",
+      "type": "currency",
+      "consumable": false,
+      "effects": {
+        "value": 1,
+        "message": "A valuable gold coin."
+      }
+    },
+    "silver_necklace": {
+      "name": "Silver Necklace",
+      "description": "A delicate silver necklace. It could fetch a good price.",
+      "type": "valuable",
+      "consumable": false,
+      "effects": {
+        "value": 30,
+        "special_action": "mountain_reveal",
+        "message": "The silver necklace gleams in the light."
+      }
+    },
+    "ancient_artifact": {
+      "name": "Ancient Artifact",
+      "description": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
+      "type": "quest_item",
+      "consumable": false,
+      "effects": {
+        "action": "unlock_secrets",
+        "message": "The artifact pulses with mysterious energy."
+      }
+    },
+    "magic_ring": {
+      "name": "Magic Ring",
+      "description": "A ring imbued with magical properties. Its effects are yet to be discovered.",
+      "type": "magical",
+      "consumable": false,
+      "effects": {
+        "action": "magical_protection",
+        "damage_reduction": 5,
+        "message": "The magic ring glows softly on your finger."
+      }
+    },
+    "mysterious_potion": {
+      "name": "Mysterious Potion",
+      "description": "A vial containing a strange, swirling liquid. Its effects are unknown.",
+      "type": "consumable",
+      "consumable": true,
+      "effects": {
+        "random_effect": true,
+        "heal_range": [10, 50],
+        "damage_range": [5, 20],
+        "message": "You drink the mysterious potion and wait to see what happens."
+      }
+    },
+    "sword": {
+      "name": "Sword",
+      "description": "A well-crafted sword with a sharp blade. Useful for combat and self-defense.",
+      "type": "weapon",
+      "consumable": false,
+      "effects": {
+        "action": "combat_weapon",
+        "damage_bonus": 10,
+        "message": "You draw the sword, feeling more confident in combat."
+      }
+    },
+    "crystal": {
+      "name": "Crystal",
+      "description": "A mysterious crystal that seems to pulse with inner light.",
+      "type": "magical",
+      "consumable": false,
+      "effects": {
+        "action": "magical_enhancement",
+        "message": "The crystal resonates with magical energy."
+      }
+    }
+  }
+}
+

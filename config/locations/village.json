@@ -1,0 +1,84 @@
+{
+  "village": {
+    "entrance_message": "You enter the bustling village. Villagers go about their daily lives around you.",
+    "actions": {
+      "visit_shop": {
+        "name": "Visit the shop",
+        "description": "Browse the village general store",
+        "shop_reference": "village_shop"
+      },
+      "talk_to_villagers": {
+        "name": "Talk to villagers",
+        "description": "Chat with the friendly locals",
+        "events": [
+          {
+            "name": "helpful_tip",
+            "probability": 40,
+            "message": "A villager gives you a helpful tip about the surrounding areas.",
+            "tips": [
+              "The forest can be dangerous at night, but it's full of useful resources.",
+              "The mountain hermit is said to possess great wisdom.",
+              "Strange lights have been seen coming from the old cave.",
+              "The shopkeeper sometimes has rare items if you ask nicely."
+            ]
+          },
+          {
+            "name": "local_gossip",
+            "probability": 35,
+            "message": "You hear some interesting local gossip.",
+            "gossip": [
+              "Did you hear about the treasure supposedly hidden in the mountain?",
+              "Some say there's a secret passage in the cave.",
+              "The forest spirits are more active during the full moon.",
+              "A traveling merchant was seen heading toward the mountain yesterday."
+            ]
+          },
+          {
+            "name": "friendly_chat",
+            "probability": 25,
+            "message": "You have a pleasant conversation with a villager about daily life."
+          }
+        ]
+      },
+      "rest_at_inn": {
+        "name": "Rest at the inn",
+        "description": "Take a break at the village inn",
+        "cost": 10,
+        "currency": "gold",
+        "effects": {
+          "heal": 50,
+          "message": "You rest at the cozy inn and feel completely refreshed."
+        }
+      },
+      "visit_well": {
+        "name": "Visit the village well",
+        "description": "Check out the central well",
+        "message": "You approach the old stone well in the village center.",
+        "events": [
+          {
+            "name": "make_wish",
+            "probability": 30,
+            "message": "You toss a coin into the well and make a wish.",
+            "cost": 1,
+            "currency": "gold",
+            "effect": "luck_bonus"
+          },
+          {
+            "name": "draw_water",
+            "probability": 70,
+            "message": "You draw some fresh, cool water from the well.",
+            "effect": "small_heal",
+            "heal_amount": 5
+          }
+        ]
+      },
+      "explore_houses": {
+        "name": "Explore the houses",
+        "description": "Look around the village houses",
+        "message": "You walk around the village, admiring the quaint thatched-roof houses.",
+        "additional_message": "The villagers have built a charming community here."
+      }
+    }
+  }
+}
+

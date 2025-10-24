@@ -1,0 +1,51 @@
+{
+  "cave": {
+    "entrance_message": "You enter the dark, mysterious cave. The air is cool and damp.",
+    "actions": {
+      "search_for_treasure": {
+        "name": "Search for treasure",
+        "description": "Look for hidden valuables",
+        "message": "You search the cave floor for hidden treasures.",
+        "events": [
+          {
+            "name": "find_treasure",
+            "probability": 30,
+            "message": "You find a sparkling gemstone hidden in a crevice!",
+            "reward": "gemstone"
+          },
+          {
+            "name": "nothing",
+            "probability": 70,
+            "message": "You don't find anything valuable this time."
+          }
+        ]
+      },
+      "examine_walls": {
+        "name": "Examine the walls",
+        "description": "Look closely at the cave walls",
+        "message": "You examine the cave walls closely.",
+        "additional_message": "The walls are covered in strange mineral formations that glitter in the dim light.",
+        "with_torch_message": "With your torch, you can see ancient markings carved into the stone."
+      },
+      "listen_for_sounds": {
+        "name": "Listen for sounds",
+        "description": "Stop and listen carefully",
+        "message": "You stop and listen carefully to the sounds in the cave.",
+        "additional_message": "You hear the distant drip of water and the echo of your own breathing."
+      },
+      "use_torch": {
+        "name": "Use torch (if you have one)",
+        "description": "Light up the cave with a torch",
+        "with_torch": {
+          "message": "You light your torch, illuminating the cave around you.",
+          "additional_message": "The flickering light reveals hidden passages and beautiful rock formations.",
+          "world_update": "cave_illuminated"
+        },
+        "without_torch": {
+          "message": "You don't have a torch to light."
+        }
+      }
+    }
+  }
+}
+

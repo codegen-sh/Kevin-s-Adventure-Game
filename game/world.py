@@ -2,33 +2,17 @@ from locations.cave import explore_cave
 from locations.forest import enter_forest
 from locations.mountain import climb_mountain
 from locations.village import visit_village
+from config import config
 
 
 def initialize_world():
+    """Initialize the game world using configuration data."""
+    world_config = config.get_world_config()
+    world_data = world_config["world"]
+    
     return {
-        "current_location": "Village",
-        "locations": {
-            "Village": {
-                "description": "A small, peaceful village with thatched-roof houses and friendly inhabitants.",
-                "connections": ["Forest", "Mountain"],
-                "items": ["map", "bread"]
-            },
-            "Forest": {
-                "description": "A dense, mysterious forest with towering trees and the sound of rustling leaves.",
-                "connections": ["Village", "Cave"],
-                "items": ["stick", "berries"]
-            },
-            "Cave": {
-                "description": "A dark, damp cave with echoing sounds and glittering minerals on the walls.",
-                "connections": ["Forest"],
-                "items": ["torch", "gemstone"]
-            },
-            "Mountain": {
-                "description": "A tall, snow-capped mountain with treacherous paths and breathtaking views.",
-                "connections": ["Village"],
-                "items": ["rope", "pickaxe"]
-            }
-        }
+        "current_location": world_data["starting_location"],
+        "locations": world_data["locations"]
     }
 
 def get_current_location(world):

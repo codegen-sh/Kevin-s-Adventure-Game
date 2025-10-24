@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Events Configuration Schema",
+  "description": "Schema for validating events configuration files",
+  "type": "object",
+  "properties": {
+    "random_events": {
+      "type": "object",
+      "properties": {
+        "global_event_probability": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "description": "Global probabilities for different event types"
+        },
+        "encounters": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the encounter"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Message displayed when encounter occurs"
+                }
+              },
+              "required": ["name", "message"],
+              "additionalProperties": true
+            }
+          },
+          "description": "Random encounter definitions"
+        },
+        "treasures": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the treasure"
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Gold value of the treasure"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Message displayed when treasure is found"
+                }
+              },
+              "required": ["name", "value", "message"],
+              "additionalProperties": false
+            }
+          },
+          "description": "Treasure definitions"
+        },
+        "weather_events": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the weather"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Message displayed when weather changes"
+                }
+              },
+              "required": ["name", "message"],
+              "additionalProperties": false
+            }
+          },
+          "description": "Weather event definitions"
+        },
+        "traps": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the trap"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Message displayed when trap is triggered"
+                },
+                "damage_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "description": "Damage range [min, max]"
+                }
+              },
+              "required": ["name", "message", "damage_range"],
+              "additionalProperties": false
+            }
+          },
+          "description": "Trap definitions"
+        },
+        "special_discoveries": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Display name of the discovery"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Message displayed when discovery is made"
+                }
+              },
+              "required": ["name", "message"],
+              "additionalProperties": true
+            }
+          },
+          "description": "Special discovery definitions"
+        }
+      },
+      "required": ["global_event_probability"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["random_events"],
+  "additionalProperties": false
+}
+

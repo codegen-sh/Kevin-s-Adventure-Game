@@ -1,0 +1,120 @@
+{
+  "random_events": {
+    "global_event_probability": {
+      "find_item": 25,
+      "encounter": 15,
+      "trap": 10,
+      "weather": 20,
+      "discovery": 5
+    },
+    "encounters": {
+      "wild_animal": {
+        "name": "Wild Animal",
+        "message": "A wild animal blocks your path! You must decide how to handle this situation.",
+        "damage_range": [5, 15],
+        "escape_chance": 60
+      },
+      "bandit": {
+        "name": "Bandit",
+        "message": "A bandit jumps out from behind a tree, demanding your gold!",
+        "damage_range": [10, 20],
+        "gold_loss_range": [5, 25],
+        "escape_chance": 40
+      },
+      "friendly_traveler": {
+        "name": "Friendly Traveler",
+        "message": "You meet a friendly traveler who shares some useful information.",
+        "positive_effect": true,
+        "heal_range": [5, 15]
+      },
+      "merchant": {
+        "name": "Traveling Merchant",
+        "message": "A traveling merchant offers to trade with you.",
+        "trade_opportunity": true
+      },
+      "hermit": {
+        "name": "Mountain Hermit",
+        "message": "You encounter a wise hermit who offers you a blessing.",
+        "blessing": true,
+        "heal_amount": 25
+      }
+    },
+    "treasures": {
+      "gold_coins": {
+        "name": "Gold Coins",
+        "value": 20,
+        "message": "You find a small pouch of gold coins!"
+      },
+      "silver_necklace": {
+        "name": "Silver Necklace",
+        "value": 30,
+        "message": "You discover a beautiful silver necklace!"
+      },
+      "ancient_coin": {
+        "name": "Ancient Coin",
+        "value": 25,
+        "message": "You uncover an ancient coin with mysterious markings!"
+      },
+      "gemstone": {
+        "name": "Gemstone",
+        "value": 50,
+        "message": "You find a sparkling gemstone!"
+      }
+    },
+    "weather_events": {
+      "sunny": {
+        "name": "Sunny Weather",
+        "message": "The sun shines brightly, lifting your spirits."
+      },
+      "rain": {
+        "name": "Rain",
+        "message": "It starts to rain. You seek shelter under a tree."
+      },
+      "fog": {
+        "name": "Thick Fog",
+        "message": "A thick fog rolls in, making it difficult to see."
+      },
+      "storm": {
+        "name": "Thunderstorm",
+        "message": "A fierce thunderstorm forces you to take cover."
+      }
+    },
+    "traps": {
+      "pit_trap": {
+        "name": "Hidden Pit",
+        "message": "You fall into a hidden pit! You manage to climb out but are injured.",
+        "damage_range": [5, 15]
+      },
+      "rope_snare": {
+        "name": "Rope Snare",
+        "message": "You get caught in a rope snare! You struggle free but are scratched.",
+        "damage_range": [3, 8]
+      },
+      "falling_rocks": {
+        "name": "Falling Rocks",
+        "message": "Rocks fall from above! You dodge most of them but get hit.",
+        "damage_range": [8, 18]
+      }
+    },
+    "special_discoveries": {
+      "hidden_path": {
+        "name": "Hidden Path",
+        "message": "You discover a hidden path that might lead to new areas!"
+      },
+      "ancient_ruins": {
+        "name": "Ancient Ruins",
+        "message": "You stumble upon ancient ruins covered in mysterious symbols."
+      },
+      "magical_spring": {
+        "name": "Magical Spring",
+        "message": "You find a magical spring! The water has healing properties.",
+        "heal_amount": 30
+      },
+      "treasure_map": {
+        "name": "Treasure Map",
+        "message": "You find an old treasure map! It might lead to riches."
+      }
+    }
+  }
+}
+

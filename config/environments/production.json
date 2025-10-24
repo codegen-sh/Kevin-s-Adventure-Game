@@ -1,0 +1,9 @@
+{
+  "base": {
+    "game": {
+      "auto_save": false,
+      "difficulty": "normal"
+    }
+  }
+}
+

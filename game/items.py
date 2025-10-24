@@ -9,30 +9,16 @@ from game.player import (
 )
 from game.world import change_location, get_all_locations, get_available_locations
 from utils.random_events import generate_random_event
+from config import config
 
 
 def get_item_description(item):
-    item_descriptions = {
-        "map": "An old, worn map of the surrounding area. It might help you navigate.",
-        "bread": "A fresh loaf of bread. It looks delicious and nutritious.",
-        "stick": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
-        "berries": "A handful of colorful berries. They might be edible... or not.",
-        "torch": "A flaming torch that provides light in dark areas.",
-        "gemstone": "A sparkling gemstone. It looks valuable.",
-        "rope": "A coil of strong rope. Useful for climbing or tying things.",
-        "pickaxe": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
-        "mushrooms": "Some wild mushrooms. They could be edible or poisonous.",
-        "mountain_herbs": "Rare medicinal herbs found on the mountain. They might have healing properties.",
-        "ancient_coin": "An old coin with strange markings. It might be valuable to collectors.",
-        "hermit's_blessing": "A mystical blessing from the mountain hermit. It fills you with energy.",
-        "gold_coin": "A shiny gold coin. Standard currency in this realm.",
-        "silver_necklace": "A delicate silver necklace. It could fetch a good price.",
-        "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
-        "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
-        "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
-        "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
-    }
-    return item_descriptions.get(item, "A mysterious item.")
+    """Get item description from configuration."""
+    try:
+        item_data = config.get_item_data(item)
+        return item_data["description"]
+    except:
+        return "A mysterious item."
 
 def use_item(player, item, world):
     if item not in player["inventory"]:
@@ -155,7 +141,7 @@ def use_item(player, item, world):
         if world["current_location"] == "Mountain":
             print("The necklace begins to glow, revealing hidden runes on nearby rocks!")
             print("You discover a secret path leading to a hidden cave.")
-            # update_world_state(world, "reveal_hidden_cave")
+            # update_player_knowledge(player, "ancient_history")
         else:
             print("The necklace sparkles beautifully, but nothing else happens.")
         return True
@@ -177,18 +163,39 @@ def use_item(player, item, world):
         return False
 
 def get_available_items(world, location):
-    return world["locations"][location]["items"]
+    """Get items available at a location. Initialize with starting_items if items not set."""
+    location_data = world["locations"][location]
+    
+    # Initialize items list if it doesn't exist (for backward compatibility)
+    if "items" not in location_data:
+        location_data["items"] = location_data.get("starting_items", []).copy()
+    
+    return location_data["items"]
 
 def add_item_to_world(world, location, item):
-    if item not in world["locations"][location]["items"]:
-        world["locations"][location]["items"].append(item)
+    """Add an item to a location in the world."""
+    location_data = world["locations"][location]
+    
+    # Initialize items list if it doesn't exist
+    if "items" not in location_data:
+        location_data["items"] = location_data.get("starting_items", []).copy()
+    
+    if item not in location_data["items"]:
+        location_data["items"].append(item)
         print(f"A {item} has been added to {location}.")
     else:
         print(f"There's already a {item} in {location}.")
 
 def remove_item_from_world(world, location, item):
-    if item in world["locations"][location]["items"]:
-        world["locations"][location]["items"].remove(item)
+    """Remove an item from a location in the world."""
+    location_data = world["locations"][location]
+    
+    # Initialize items list if it doesn't exist
+    if "items" not in location_data:
+        location_data["items"] = location_data.get("starting_items", []).copy()
+    
+    if item in location_data["items"]:
+        location_data["items"].remove(item)
         return True
     return False
 

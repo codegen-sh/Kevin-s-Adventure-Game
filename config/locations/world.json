@@ -1,0 +1,48 @@
+{
+  "world": {
+    "starting_location": "Village",
+    "locations": {
+      "Village": {
+        "name": "Village",
+        "description": "A small, peaceful village with thatched-roof houses and friendly inhabitants.",
+        "connections": ["Forest", "Mountain"],
+        "starting_items": ["map", "bread"],
+        "location_type": "settlement",
+        "safe_zone": true,
+        "requires_light": false,
+        "dangerous": false
+      },
+      "Forest": {
+        "name": "Forest",
+        "description": "A dense, mysterious forest with towering trees and the sound of rustling leaves.",
+        "connections": ["Village", "Cave"],
+        "starting_items": ["stick", "berries"],
+        "location_type": "wilderness",
+        "safe_zone": false,
+        "requires_light": false,
+        "dangerous": true
+      },
+      "Cave": {
+        "name": "Cave",
+        "description": "A dark, damp cave with echoing sounds and glittering minerals on the walls.",
+        "connections": ["Forest"],
+        "starting_items": ["torch", "gemstone"],
+        "location_type": "dungeon",
+        "safe_zone": false,
+        "requires_light": true,
+        "dangerous": true
+      },
+      "Mountain": {
+        "name": "Mountain",
+        "description": "A tall, snow-capped mountain with treacherous paths and breathtaking views.",
+        "connections": ["Village"],
+        "starting_items": ["rope", "pickaxe"],
+        "location_type": "wilderness",
+        "safe_zone": false,
+        "requires_light": false,
+        "dangerous": true
+      }
+    }
+  }
+}
+
