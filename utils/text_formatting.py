@@ -33,6 +33,7 @@ Available commands:
 - examine [item]: Get a description of an item
 - status: Check your current status
 - interact: Interact with your current location
+- emoji [name]: Display an emoji (try: smile, laugh, sad, heart, star, fire)
 - help: Show this help message
 - quit: Save and exit the game
     """
