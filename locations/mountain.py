@@ -6,6 +6,7 @@ from game.player import (
     remove_item_from_inventory,
 )
 from game.state import update_world_state
+from game.config import get_random_event_probabilities, get_healing_value, get_damage_value
 from utils.random_events import generate_random_event
 
 
@@ -41,9 +42,8 @@ def climb_mountain(world, player):
 
 def check_weather(world, player):
     print("You pause to check the weather conditions.")
-    # TODO: Implement weather system
-    # weather = get_current_weather(world)
-    event = generate_random_event(events = [("clear_skies", 50), ("incoming_storm", 50)])
+    event_probs = get_random_event_probabilities("mountain_weather")
+    event = generate_random_event(events=event_probs)
 
     if event == "clear_skies":
         print("The skies are clear, offering a breathtaking view of the surrounding lands.")
@@ -61,12 +61,13 @@ def use_climbing_gear(world, player):
         print("Your careful climbing technique leaves you feeling confident.")
     else:
         print("This part of the path looks dangerous. A rope would be useful here.")
-        damage_player(player, 10)
+        damage_player(player, get_damage_value("climbing_accident"))
         print("You slip and take some damage while climbing. Be more careful!")
 
 def search_for_herbs(world, player):
     print("You search the mountainside for rare herbs.")
-    if generate_random_event(events = [("find_herbs", 30), (None, 70)]) == "find_herbs":
+    event_probs = get_random_event_probabilities("mountain_herbs")
+    if generate_random_event(events=event_probs) == "find_herbs":
         print("You find some rare medicinal herbs!")
         add_item_to_inventory(player, "mountain_herbs")
     else:
@@ -89,7 +90,8 @@ def explore_mountain_cave(world, player):
     print("You discover a small cave entrance on the mountainside.")
     if "torch" in player["inventory"]:
         print("You use your torch to explore the mountain cave.")
-        if generate_random_event(events = [("find_treasure", 20), (None, 80)]) == "find_treasure":
+        event_probs = get_random_event_probabilities("mountain_treasure")
+        if generate_random_event(events=event_probs) == "find_treasure":
             print("You discover an old treasure chest hidden in the cave!")
             add_item_to_inventory(player, "ancient_coin")
         else:

@@ -1,6 +1,7 @@
 from game.mythical import summon_mythical_creature
 from game.player import add_item_to_inventory, heal_player
 from game.state import update_world_state
+from game.config import get_random_event_probabilities, get_healing_value
 from utils.random_events import generate_random_event
 
 
@@ -33,7 +34,8 @@ def enter_forest(world, player):
 
 def explore_forest(world, player):
     print("You decide to explore deeper into the forest.")
-    event = generate_random_event(events = [("find_berries", 40), ("encounter_animal", 25), ("discover_clearing", 10), (None, 25)])
+    event_probs = get_random_event_probabilities("forest_explore")
+    event = generate_random_event(events=event_probs)
 
     if event == "find_berries":
         print("You stumble upon a bush full of ripe berries!")
@@ -65,7 +67,8 @@ def listen_to_forest(world, player):
 
 def forage_for_food(world, player):
     print("You search the forest floor for edible plants and mushrooms.")
-    if generate_random_event(events = [("find_mushrooms", 30), (None, 70)]) == "find_mushrooms":
+    event_probs = get_random_event_probabilities("forest_forage")
+    if generate_random_event(events=event_probs) == "find_mushrooms":
         print("You find some edible mushrooms!")
         add_item_to_inventory(player, "mushrooms")
     else:

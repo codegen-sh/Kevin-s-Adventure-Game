@@ -1,8 +1,9 @@
 import json
 import os
 from datetime import datetime
+from game.config import GAME_SETTINGS, MESSAGES
 
-SAVE_DIRECTORY = "saves"
+SAVE_DIRECTORY = GAME_SETTINGS["save_directory"]
 
 def ensure_save_directory():
     """Ensure that the save directory exists. Use save_game() to actually save the game."""

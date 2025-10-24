@@ -8,31 +8,20 @@ from game.player import (
     remove_item_from_inventory,
 )
 from game.world import change_location, get_all_locations, get_available_locations
+from game.config import (
+    get_item_description as get_desc,
+    get_healing_value,
+    get_damage_value,
+    get_shop_price,
+    get_item_value
+)
 from utils.random_events import generate_random_event
 
 
 def get_item_description(item):
-    item_descriptions = {
-        "map": "An old, worn map of the surrounding area. It might help you navigate.",
-        "bread": "A fresh loaf of bread. It looks delicious and nutritious.",
-        "stick": "A sturdy wooden stick. It could be used as a simple weapon or tool.",
-        "berries": "A handful of colorful berries. They might be edible... or not.",
-        "torch": "A flaming torch that provides light in dark areas.",
-        "gemstone": "A sparkling gemstone. It looks valuable.",
-        "rope": "A coil of strong rope. Useful for climbing or tying things.",
-        "pickaxe": "A sturdy pickaxe. Perfect for mining or breaking through rocks.",
-        "mushrooms": "Some wild mushrooms. They could be edible or poisonous.",
-        "mountain_herbs": "Rare medicinal herbs found on the mountain. They might have healing properties.",
-        "ancient_coin": "An old coin with strange markings. It might be valuable to collectors.",
-        "hermit's_blessing": "A mystical blessing from the mountain hermit. It fills you with energy.",
-        "gold_coin": "A shiny gold coin. Standard currency in this realm.",
-        "silver_necklace": "A delicate silver necklace. It could fetch a good price.",
-        "ancient_artifact": "A mysterious object from a long-lost civilization. Its purpose is unknown.",
-        "magic_ring": "A ring imbued with magical properties. Its effects are yet to be discovered.",
-        "mysterious_potion": "A vial containing a strange, swirling liquid. Its effects are unknown.",
-        "sword": "A well-crafted sword with a sharp blade. Useful for combat and self-defense."
-    }
-    return item_descriptions.get(item, "A mysterious item.")
+    # Use the centralized configuration
+    from game.config import get_item_description as get_desc
+    return get_desc(item)
 
 def use_item(player, item, world):
     if item not in player["inventory"]:
@@ -47,7 +36,7 @@ def use_item(player, item, world):
         return True
     elif item == "bread":
         print("You eat the bread. It's delicious and restores some health.")
-        heal_player(player, 20)
+        heal_player(player, get_healing_value("bread"))
         remove_item_from_inventory(player, item)
         return True
     elif item == "stick":
@@ -60,10 +49,10 @@ def use_item(player, item, world):
         print("You eat the berries. They're sweet and juicy.")
         if generate_random_event(events=[("heal", 70), ("poison", 30)]) == "heal":
             print("You feel refreshed and gain some health.")
-            heal_player(player, 10)
+            heal_player(player, get_healing_value("berries"))
         else:
             print("Uh oh, those weren't safe to eat. You lose some health.")
-            damage_player(player, 5)
+            damage_player(player, get_damage_value("berries_poison"))
         remove_item_from_inventory(player, item)
         return True
     elif item == "torch":
@@ -81,9 +70,9 @@ def use_item(player, item, world):
             print("A merchant notices your gemstone and offers to buy it for 50 gold!")
             choice = input("Do you want to sell the gemstone? (y/n): ").lower()
             if choice == 'y':
-                player["gold"] += 50
+                player["gold"] += get_item_value("gemstone")
                 remove_item_from_inventory(player, item)
-                print("You sold the gemstone for 50 gold.")
+                print(f"You sold the gemstone for {get_item_value('gemstone')} gold.")
             else:
                 print("You decide to keep the gemstone.")
         return True
@@ -102,15 +91,15 @@ def use_item(player, item, world):
         print("You decide to eat the mushrooms.")
         if generate_random_event(events=[("heal", 50), ("poison", 50)]) == "heal":
             print("The mushrooms were edible and restore some health.")
-            heal_player(player, 20)
+            heal_player(player, get_healing_value("mushrooms"))
         else:
             print("The mushrooms were poisonous! You feel sick.")
-            damage_player(player, 10)
+            damage_player(player, get_damage_value("mushrooms_poison"))
         remove_item_from_inventory(player, item)
         return True
     elif item == "mountain_herbs":
         print("You brew a tea with the mountain herbs and drink it.")
-        heal_player(player, 30)
+        heal_player(player, get_healing_value("mountain_herbs"))
         print("You feel invigorated and ready for more adventures!")
         remove_item_from_inventory(player, item)
         return True
@@ -128,7 +117,7 @@ def use_item(player, item, world):
         return True
     elif item == "hermit's_blessing":
         print("You invoke the hermit's blessing. A warm, comforting light envelops you.")
-        heal_player(player, 50)
+        heal_player(player, get_healing_value("hermit's_blessing"))
         print("You feel completely refreshed and your mind is clear.")
         remove_item_from_inventory(player, item)
         return True
@@ -155,7 +144,7 @@ def use_item(player, item, world):
         if world["current_location"] == "Mountain":
             print("The necklace begins to glow, revealing hidden runes on nearby rocks!")
             print("You discover a secret path leading to a hidden cave.")
-            # update_world_state(world, "reveal_hidden_cave")
+            # update_player_knowledge(player, "ancient_history")
         else:
             print("The necklace sparkles beautifully, but nothing else happens.")
         return True
@@ -167,7 +156,7 @@ def use_item(player, item, world):
             # update_player_knowledge(player, "ancient_history")
         elif generate_random_event(events=[("wisdom", 40), ("curse", 30), (None, 30)]) == "curse":
             print("A dark energy emanates from the artifact, making you feel weak.")
-            damage_player(player, 10)
+            damage_player(player, get_damage_value("ancient_artifact_curse"))
             print("You quickly put the artifact away, feeling drained.")
         else:
             print("Despite its age, the artifact remains inert and mysterious.")

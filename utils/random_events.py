@@ -1,10 +1,14 @@
 import random
 
 from game.player import add_item_to_inventory, damage_player, heal_player
-
-# from game.world import update_world_state
+from game.config import (
+    SHOP_PRICES, 
+    TREASURE_TYPES, 
+    get_healing_value, 
+    get_damage_value,
+    get_random_event_probabilities
+)
 from utils.text_formatting import print_event
-
 
 def generate_random_event(events):
     """Generate a random event based on probabilities."""
@@ -23,13 +27,14 @@ def handle_random_encounter(player, world):
 
     if encounter == "friendly_traveler":
         print_event("You meet a friendly traveler who shares some of their supplies with you.")
-        heal_player(player, 10)
+        heal_player(player, get_healing_value("friendly_traveler"))
     elif encounter == "merchant":
         print_event("A wandering merchant offers to sell you a mysterious potion.")
-        if player.get("gold", 0) >= 20:
-            choice = input("Do you want to buy the potion for 20 gold? (y/n): ").lower()
+        potion_price = SHOP_PRICES["mysterious_potion"]
+        if player.get("gold", 0) >= potion_price:
+            choice = input(f"Do you want to buy the potion for {potion_price} gold? (y/n): ").lower()
             if choice == 'y':
-                player["gold"] -= 20
+                player["gold"] -= potion_price
                 add_item_to_inventory(player, "mysterious_potion")
                 print("You bought the mysterious potion.")
             else:
@@ -41,7 +46,7 @@ def handle_random_encounter(player, world):
         player["gold"] = player.get("gold", 0) + 15
     elif encounter == "wild_animal":
         print_event("A wild animal attacks you!")
-        damage_player(player, 15)
+        damage_player(player, get_damage_value("wild_animal"))
     elif encounter == "bandit":
         print_event("A bandit tries to rob you!")
         if "sword" in player["inventory"]:
@@ -55,13 +60,7 @@ def handle_random_encounter(player, world):
 
 def find_treasure(player):
     """Handle finding a treasure."""
-    treasures = [
-        ("gold_coin", 5),
-        ("silver_necklace", 10),
-        ("ancient_artifact", 20),
-        ("magic_ring", 30)
-    ]
-    treasure, value = random.choice(treasures)
+    treasure, value = random.choice(TREASURE_TYPES)
     print_event(f"You found a {treasure} worth {value} gold!")
     add_item_to_inventory(player, treasure)
     player["gold"] = player.get("gold", 0) + value
@@ -80,7 +79,7 @@ def trap_event(player):
     traps = ["pitfall", "snare", "poison_dart"]
     trap = random.choice(traps)
     print_event(f"You've triggered a {trap} trap!")
-    damage = random.randint(5, 15)
+    damage = get_damage_value("trap_pitfall")  # Using pitfall as default trap damage
     damage_player(player, damage)
 
 def special_discovery(player, world):
@@ -101,7 +100,7 @@ def special_discovery(player, world):
         add_item_to_inventory(player, "ancient_artifact")
         print("You find an ancient artifact among the ruins.")
     elif discovery == "magical_spring":
-        heal_player(player, 30)
+        heal_player(player, get_healing_value("magical_spring"))
         print("You drink from the magical spring and feel rejuvenated.")
     elif discovery == "abandoned_camp":
         items = ["rope", "torch", "map"]
@@ -111,7 +110,8 @@ def special_discovery(player, world):
 
 def apply_random_event(player, world):
     """Apply a random event to the game state."""
-    event = generate_random_event(events=[("nothing", 20), ("find_item", 20), ("encounter", 20), ("weather_change", 10), ("trap", 10), ("special_discovery", 20)])
+    event_probs = get_random_event_probabilities("general_exploration")
+    event = generate_random_event(events=event_probs)
 
     if event == "nothing":
         return  # No event occurs
@@ -125,4 +125,3 @@ def apply_random_event(player, world):
         trap_event(player)
     elif event == "special_discovery":
         special_discovery(player, world)
-

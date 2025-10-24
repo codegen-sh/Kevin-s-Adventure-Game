@@ -1,13 +1,17 @@
 from utils.text_formatting import format_inventory, print_game_over
+from game.config import GAME_SETTINGS, PLAYER_DEFAULTS
 
 
 def create_player(name):
     return {
         "name": name,
-        "health": 100,
+        "health": GAME_SETTINGS["starting_health"],
         "inventory": [],
-        "location": "Village",
-        "gold": 100
+        "location": GAME_SETTINGS["starting_location"],
+        "gold": GAME_SETTINGS["starting_gold"],
+        "agility": PLAYER_DEFAULTS["agility"],
+        "perception": PLAYER_DEFAULTS["perception"],
+        "strength": PLAYER_DEFAULTS["strength"]
     }
 
 def get_player_status(player):
@@ -30,7 +34,7 @@ def move_player(player, new_location):
     print(f"You moved to: {new_location}")
 
 def heal_player(player, amount):
-    player['health'] = min(100, player['health'] + amount)
+    player['health'] = min(GAME_SETTINGS["max_health"], player['health'] + amount)
     print(f"You healed for {amount} health. Current health: {player['health']}")
 
 def damage_player(player, amount):
