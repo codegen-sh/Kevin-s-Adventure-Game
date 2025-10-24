@@ -33,6 +33,7 @@ Available commands:
 - examine [item]: Get a description of an item
 - status: Check your current status
 - interact: Interact with your current location
+- report: Generate a detailed progress report
 - help: Show this help message
 - quit: Save and exit the game
     """

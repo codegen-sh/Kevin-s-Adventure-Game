@@ -28,7 +28,14 @@ def initialize_world():
                 "connections": ["Village"],
                 "items": ["rope", "pickaxe"]
             }
-        }
+        },
+        # Initialize tracking data for reports
+        "visited_locations": ["Village"],  # Start with Village as visited
+        "location_visits": {"Village": 1},  # Start with one visit to Village
+        "total_gold_earned": 0,
+        "total_gold_spent": 0,
+        "items_collected": [],
+        "events_encountered": []
     }
 
 def get_current_location(world):
@@ -44,6 +51,17 @@ def get_available_locations(world):
 def change_location(world, new_location):
     if new_location in get_available_locations(world):
         world["current_location"] = new_location
+        
+        # Update location tracking for reports
+        if new_location not in world["visited_locations"]:
+            world["visited_locations"].append(new_location)
+        
+        # Update visit count
+        if new_location in world["location_visits"]:
+            world["location_visits"][new_location] += 1
+        else:
+            world["location_visits"][new_location] = 1
+            
         return True
     return False
 
@@ -66,3 +84,27 @@ def is_location_accessible(world, location):
 
 def get_all_locations(world):
     return list(world["locations"].keys())
+
+def track_gold_earned(world, amount):
+    """Track gold earned for reporting purposes."""
+    world["total_gold_earned"] += amount
+
+def track_gold_spent(world, amount):
+    """Track gold spent for reporting purposes."""
+    world["total_gold_spent"] += amount
+
+def track_item_collected(world, item):
+    """Track items collected for reporting purposes."""
+    world["items_collected"].append(item)
+
+def track_event(world, event_type, event_details=None):
+    """Track game events for reporting purposes."""
+    event = {
+        "type": event_type,
+        "timestamp": "timestamp_placeholder",  # In a real implementation, use datetime
+    }
+    
+    if event_details:
+        event["details"] = event_details
+        
+    world["events_encountered"].append(event)
