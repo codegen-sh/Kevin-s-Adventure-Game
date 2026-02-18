@@ -1,0 +1,25 @@
+name: Create xyz123987 Branch
+
+on:
+  workflow_dispatch:  # Manual trigger (optional)
+  push:
+    branches: [ "main" ]  # Auto-trigger on push to main (optional)
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for branch operations
+
+      - name: Create and Push xyz123987 Branch
+        run: |
+          git checkout -b xyz123987
+          git push origin xyz123987
+          echo "Branch 'xyz123987' created and pushed."
+
+      - name: Verify Branch
+        run: |
+          echo "Success! Branch 'xyz123987' is now available in the repo."
