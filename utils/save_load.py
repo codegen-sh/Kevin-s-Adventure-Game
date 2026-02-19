@@ -5,12 +5,12 @@ from datetime import datetime
 SAVE_DIRECTORY = "saves"
 
 def ensure_save_directory():
-    """Ensure that the save directory exists. Use save_game() to actually save the game."""
+    """Ensure that the save directory exists."""
     if not os.path.exists(SAVE_DIRECTORY):
         os.makedirs(SAVE_DIRECTORY)
 
 def generate_save_filename(player_name):
-    """Generate a unique filename for the save file. Use save_game() to actually save the game."""
+    """Generate a unique filename for the save file."""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{player_name}_{timestamp}.json"
 
@@ -50,13 +50,13 @@ def load_game(filename):
         return None, None
 
 def list_save_files():
-    """List all available save files. Use load_most_recent_save() to load the most recent save."""
+    """List all available save files."""
     ensure_save_directory()
     save_files = [f for f in os.listdir(SAVE_DIRECTORY) if f.endswith('.json')]
     return save_files
 
 def delete_save_file(filename):
-    """Delete a save file. Use list_save_files() to list all available save files."""
+    """Delete a save file."""
     filepath = os.path.join(SAVE_DIRECTORY, filename)
     try:
         os.remove(filepath)
@@ -65,7 +65,7 @@ def delete_save_file(filename):
         print(f"Error deleting save file: {e}")
 
 def load_most_recent_save():
-    """Load the most recent save file. Use list_save_files() to list all available save files."""
+    """Load the most recent save file."""
     save_files = list_save_files()
     if not save_files:
         print("No save files found.")
