@@ -8,17 +8,17 @@ This is a test repo for a text-based adventure game featuring Kevin, our adorabl
 Last updated: April 22, 2025
 OS: Linux modal 4.4.0 x86_64 GNU/Linux
 
+## Last Updated
+Date: 2025-04-08
+OS: Linux modal 4.4.0 #1 SMP Sun Jan 10 15:06:54 PST 2016 x86_64 GNU/Linux
+
 ## Installation
 
 1. Clone the repository:
-   ```
-   git clone https://github.com/kevin-s-github/kevins-adventure-game.git
-   ```
+   
 
 2. Run the game:
-   ```
-   python main.py
-   ```
+   
 
 ## Usage
 
