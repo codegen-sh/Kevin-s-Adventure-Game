@@ -8,6 +8,10 @@ This is a test repo for a text-based adventure game featuring Kevin, our adorabl
 Last updated: April 22, 2025
 OS: Linux modal 4.4.0 x86_64 GNU/Linux
 
+## System Information 🌈
+- Last updated: April 3, 2025
+- OS: Linux modal 4.4.0 x86_64 GNU/Linux
+
 ## Installation
 
 1. Clone the repository:
